@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Dungeon_WPF.ViewModels
+namespace Dungeon_WPF.HelperFiles
 {
     public abstract class BasisViewModel : IDataErrorInfo, INotifyPropertyChanged, ICommand
     {
@@ -46,7 +46,7 @@ namespace Dungeon_WPF.ViewModels
             get
             {
                 string foutmeldingen = "";
-                foreach (var item in this.GetType().GetProperties()) //reflection 
+                foreach (var item in GetType().GetProperties()) //reflection 
                 {
                     string fout = this[item.Name];
                     if (!string.IsNullOrWhiteSpace(fout))

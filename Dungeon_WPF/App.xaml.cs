@@ -24,6 +24,7 @@ namespace Dungeon_WPF
             Views.StartView view = new Views.StartView();
             StartViewModel vm = new StartViewModel(view);
             view.DataContext = vm;
+            view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             view.Show();
         }
     }

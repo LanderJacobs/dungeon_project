@@ -5,14 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Dungeon_WPF.HelperFiles;
-using Dungeon_WPF.Views;
 
 namespace Dungeon_WPF.ViewModels
 {
-    internal class StartViewModel: BasisViewModel
+    public class DungeonSelectionViewModel: BasisViewModel
     {
         public Window view;
-
         #region helperfunctions
         public override string this[string columnName]
         {
@@ -32,12 +30,7 @@ namespace Dungeon_WPF.ViewModels
             switch (parameter.ToString())
             {
                 case "Start":
-                    SelectionView _view = new SelectionView();
-                    SelectionViewModel vm = new SelectionViewModel(_view);
-                    _view.DataContext = vm;
-                    _view.WindowStartupLocation= WindowStartupLocation.CenterScreen;
-                    _view.Show();
-                    view.Close();
+                    //write your method;
                     break;
                 default:
                     break;
@@ -46,7 +39,7 @@ namespace Dungeon_WPF.ViewModels
 
         #endregion
 
-        public StartViewModel(Window _view)
+        public DungeonSelectionViewModel(Window _view)
         {
             view = _view;
         }

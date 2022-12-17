@@ -8,26 +8,28 @@ using System.Threading.Tasks;
 
 namespace Dungeon_WPF.DomainModels
 {
-    public class Character
+    public class Enemy
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
-        public int Money { get; set; }
+        public int Health { get; set; }
         [Required]
         public int Attack { get; set; }
         [Required]
         public int Speed { get; set; }
         [Required]
-        public int Health { get; set; }
+        public int AttackChance { get; set; }
+        [Required]
+        public int RestChance { get; set; }
         [NotMapped]
-        public int CurrentHealth { get; set; }
+        public bool Dazed { get; set; }
+        [Required]
+        public int DungeonID { get; set;}
 
-        public virtual int DamageCalculated()
-        {
-            return 5;
-        }
+        [ForeignKey("DungeonID")]
+        public Dungeon Dungeon { get; set; }
     }
 }
