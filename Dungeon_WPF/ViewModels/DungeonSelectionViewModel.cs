@@ -4,21 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Dungeon_WPF.Data;
+using Dungeon_WPF.Data.UnitOfWork;
 using Dungeon_WPF.DomainModels;
 using Dungeon_WPF.HelperFiles;
+using Dungeon_WPF.Views;
 
 namespace Dungeon_WPF.ViewModels
 {
     public class DungeonSelectionViewModel: BasisViewModel
     {
         public Window view;
+        HelpMethods help = new HelpMethods();
+        IUnitOfWork unitofwork = new UnitOfWork(new DungeonEntities());
         public Character character;
         private string _name;
         private string _attack;
         private string _health;
         private string _speed;
         private string _money;
-        
+        private List<Dungeon> _dungeonlist;
+        private Dungeon _selecteddungeon;
+
+        public Dungeon SelectedDungeon
+        {
+            get { return _selecteddungeon; }
+            set
+            {
+                _selecteddungeon = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public List<Dungeon> DungeonList
+        {
+            get { return _dungeonlist; }
+            set
+            {
+                _dungeonlist = value;
+                NotifyPropertyChanged();
+            }
+        }
         public string Money
         {
             get { return _money; }
@@ -64,6 +89,7 @@ namespace Dungeon_WPF.ViewModels
                 NotifyPropertyChanged();
             }
         }
+
         #region helperfunctions
         public override string this[string columnName]
         {
@@ -82,8 +108,16 @@ namespace Dungeon_WPF.ViewModels
         {
             switch (parameter.ToString())
             {
-                case "Start":
-                    //write your method;
+                case "Choose":
+                    OpenDungeon();
+                    break;
+                case "Cancel":
+                    SelectionView _view = new SelectionView();
+                    SelectionViewModel vm = new SelectionViewModel(_view);
+                    _view.DataContext = vm;
+                    _view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    _view.Show();
+                    view.Close();
                     break;
                 default:
                     break;
@@ -95,12 +129,32 @@ namespace Dungeon_WPF.ViewModels
         public DungeonSelectionViewModel(Window _view, Character _character)
         {
             view = _view;
-            character = _character;
+            // This is done so we can see the updated Money-count
+            character = unitofwork.CharacterRepo.Get(x => x.Id == _character.Id);
             Name = character.Name;
             Money = character.Money.ToString();
             Attack= character.Attack.ToString();
             Health = character.Health.ToString();
             Speed= character.Speed.ToString();
+
+            DungeonList = unitofwork.DungeonRepo.GetAll().ToList();
+        }
+
+        public void OpenDungeon()
+        {
+            if (SelectedDungeon != null)
+            {
+                DungeonView _view = new DungeonView();
+                DungeonViewModel vm = new DungeonViewModel(_view, SelectedDungeon, character);
+                _view.DataContext = vm;
+                _view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                _view.Show();
+                view.Close();
+            }
+            else
+            {
+                help.Message("Don't forget to select a Dungeon first!");
+            }
         }
     }
 }

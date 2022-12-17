@@ -5,30 +5,90 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dungeon_WPF.Views"
         mc:Ignorable="d"
-        Title="DungeonSelectionView" Height="450" Width="800">
+        Title="Select a dungeon" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="DungeonExample">
+                <Border BorderBrush="Black" Background="White" BorderThickness="3" CornerRadius="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="{Binding Name}"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <Label Content="Length:"/>
+                            <Label Content="{Binding MaxSteps}"/>
+                            <Label Content="Steps"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DungeonChoice">
+                <Border BorderBrush="Black" Background="FloralWhite" BorderThickness="5" CornerRadius="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="{Binding Name}" FontWeight="Bold"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <Label Content="Length:" FontWeight="Bold"/>
+                            <Label Content="{Binding MaxSteps}" FontWeight="Bold"/>
+                            <Label Content="Steps" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+            
+            <Style x:Key="ContainerStyle" TargetType="ListBoxItem">
+                <Setter Property="ContentTemplate" Value="{StaticResource DungeonExample}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="ContentTemplate" Value="{StaticResource DungeonChoice}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Name}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="Money:"/>
-        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding Money}"/>
-        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Attack:"/>
-        <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding Attack}"/>
-        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Health:"/>
-        <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding Health}"/>
-        <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Speed:"/>
-        <Label Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding Speed}"/>
-
-        <Label Grid.Row="0" Grid.Column="2" Content="Choose a dungeon" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Name}" FontSize="30"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Money:"/>
+                <Label Content="{Binding Money}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Attack:"/>
+                <Label Content="{Binding Attack}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Health:"/>
+                <Label Content="{Binding Health}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Speed:"/>
+                <Label Content="{Binding Speed}"/>
+            </StackPanel>
+        </StackPanel>
+        
+        <Label Grid.Row="0" Grid.Column="1" Content="Choose a dungeon" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40"/>
+        <ListBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" ItemContainerStyle="{StaticResource ContainerStyle}"
+                 ItemsSource="{Binding DungeonList}" SelectedItem="{Binding SelectedDungeon}"
+                 BorderBrush="Transparent" Background="Transparent" HorizontalContentAlignment="Stretch"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <Button Grid.Row="2" Grid.Column="0" Margin="10" Content="Choose Dungeon" Command="{Binding}" CommandParameter="Choose"/>
+        <Button Grid.Row="3" Grid.Column="0" Margin="10" Content="Cancel" Command="{Binding}" CommandParameter="Cancel"/>
     </Grid>
 </Window>

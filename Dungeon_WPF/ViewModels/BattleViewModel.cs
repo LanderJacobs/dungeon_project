@@ -24,6 +24,8 @@ namespace Dungeon_WPF.ViewModels
         private string _name;
         private string _enemyName;
         private bool _allowbutton;
+        public int turn = 1;
+        public bool block = false;
 
         public bool AllowButton
         {
@@ -99,7 +101,18 @@ namespace Dungeon_WPF.ViewModels
             switch (parameter.ToString())
             {
                 case "Fight":
-                    //write your method;
+                    AllowButton == false;
+                    if (character.Speed <= enemy.Speed)
+                    {
+                        Attack();
+                        EnemyAttack();
+                    }
+                    else
+                    {
+                        EnemyAttack();
+                        Attack();
+                    }
+                    EndTurn();
                     break;
                 case "Block":
                     break;
@@ -114,7 +127,7 @@ namespace Dungeon_WPF.ViewModels
 
         #endregion
 
-        public BattleViewModel(Window _view, Character _character, int dungeonID)
+        public BattleViewModel(Window _view, ref Character _character, int dungeonID)
         {
             view = _view;
             AllowButton = true;
@@ -128,19 +141,63 @@ namespace Dungeon_WPF.ViewModels
             Random r = new Random();
             int RandomEnemy = r.Next(0, list.Count());
             enemy = list[RandomEnemy];
+            enemy.Dazed = false;
             EnemyName = enemy.Name;
             EnemyHealth = enemy.Health;
 
         }
 
+        public void EndBattle(bool won)
+        {
+            if (won == true)
+            {
+                view.DialogResult = true;
+            }
+            else
+            {
+                view.DialogResult = false;
+            }
+            view.Close();
+        }
+
+        public void EndTurn()
+        {
+            turn++;
+            block = false;
+        }
+
+        public void CheckHealth()
+        {
+            if (EnemyHealth <= 0)
+            {
+                EndBattle(true);
+            }
+            else if (character.CurrentHealth <= 0)
+            {
+                EndBattle(false);
+            }
+        }
+
         public void EnemyAttack()
         {
+            if (enemy.Dazed == true)
+            {
+                Text = "The enemy is dazed right now and cannot attack this turn!";
+                enemy.Dazed = false;
+            }
+            else
+            {
+                if (enemy.Run(turn, EnemyHealth) == true)
+                {
+                    EndBattle(true);
+                }
 
+            }
         }
 
         public void Attack()
         {
-
+            EnemyHealth -= character.DamageCalculated();
         }
     }
 }

@@ -21,6 +21,8 @@ namespace Dungeon_WPF.DomainModels
         public int LootChance { get; set; }
         [Required]
         public int ShortCutChance { get; set; }
+        [Required]
+        public int NothingChance { get; set; }
 
         public ICollection<Enemy> Enemies { get; set; }
     }

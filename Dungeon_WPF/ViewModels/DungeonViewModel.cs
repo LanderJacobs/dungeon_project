@@ -105,7 +105,7 @@ namespace Dungeon_WPF.ViewModels
         public void TakeStep()
         {
             Random r = new Random();
-            int Chance = r.Next(0, dungeon.EnemyChance + dungeon.ShortCutChance + dungeon.LootChance);
+            int Chance = r.Next(0, dungeon.EnemyChance + dungeon.ShortCutChance + dungeon.LootChance + dungeon.NothingChance);
 
             if (Chance <= dungeon.EnemyChance)
             {
@@ -113,31 +113,48 @@ namespace Dungeon_WPF.ViewModels
                 Text = "You just encountered an enemy!";
 
                 BattleView _view = new BattleView();
-                BattleViewModel vm = new BattleViewModel(_view, character, dungeon.Id);
+                BattleViewModel vm = new BattleViewModel(_view, ref character, dungeon.Id);
                 _view.DataContext = vm;
                 _view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 _view.ShowDialog();
 
-                Counter++;
+                if (_view.DialogResult == true)
+                {
+                    Counter++;
+                    Text = "You won this fight!";
+                }
+
+                if (character.CurrentHealth <= 0)
+                {
+                    help.Message("Oh No, you blacked out and lost all your loot!");
+                    EndDungeon();
+                }
             }
             else if (Chance <= dungeon.EnemyChance + dungeon.LootChance)
             {
                 //get loot (gold)
-                int loot = r.Next(0, 10);
+                int minGold = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(character.Attack - (character.Attack / 2))));
+                int maxGold = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(character.Attack + (character.Attack / 2))));
+                int loot = r.Next(minGold, maxGold);
                 Loot += loot;
                 Counter++;
                 Text = $"You found {loot} gold on the ground";
             }
-            else
+            else if (Chance <= dungeon.EnemyChance + dungeon.LootChance + dungeon.ShortCutChance)
             {
                 //take multiple steps (= a shortcut)
                 Counter += 5;
                 Text = "You found a shortcut and took multiple steps at once";
             }
+            else
+            {
+                Counter++;
+                Text = "Nothing happened!";
+            }
 
             if (Counter >= dungeon.MaxSteps)
             {
-                help.Message("Wel done, you finished this dungeon");
+                help.Message("Well done, you finished this dungeon alive!");
                 character.Money += Loot;
                 // adding the loot to the character
                 unitofwork.CharacterRepo.Update(character);

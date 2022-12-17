@@ -8,7 +8,7 @@
         Title="Selection your character" Height="450" Width="800">
     <Window.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="CharacterChoice">
+            <DataTemplate x:Key="CharacterExample">
                 <Border BorderBrush="Black" Background="White" BorderThickness="3" CornerRadius="5">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -16,12 +16,12 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Content="{Binding Name}" Grid.Column="0"/>
-                        <Label Content="{Binding Money}" Grid.Column="0"/>
+                        <Label Content="{Binding ClassName}" Grid.Column="1"/>
                     </Grid>
                 </Border>
             </DataTemplate>
 
-            <DataTemplate x:Key="CharacterChoice2">
+            <DataTemplate x:Key="CharacterChoice">
                 <Border BorderBrush="Black" Background="WhiteSmoke" BorderThickness="5" CornerRadius="5">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -29,16 +29,16 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Content="{Binding Name}" Grid.Column="0" FontWeight="Bold"/>
-                        <Label Content="{Binding Money}" Grid.Column="0" FontWeight="Bold"/>
+                        <Label Content="{Binding ClassName}" Grid.Column="1" FontWeight="Bold"/>
                     </Grid>
                 </Border>
             </DataTemplate>
 
             <Style x:Key="ContainerStyle" TargetType="ListBoxItem">
-                <Setter Property="ContentTemplate" Value="{StaticResource CharacterChoice}"/>
+                <Setter Property="ContentTemplate" Value="{StaticResource CharacterExample}"/>
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="ContentTemplate" Value="{StaticResource CharacterChoice2}"/>
+                        <Setter Property="ContentTemplate" Value="{StaticResource CharacterChoice}"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -54,6 +54,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button Grid.Column="1" Grid.Row="1" Margin="50" Command="{Binding}" CommandParameter="Add">Add Character</Button>
+        <Button Grid.Column="1" Grid.Row="0" Margin="50" Command="{Binding}" CommandParameter="Choose">Choose Character</Button>
         <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" ItemsSource="{Binding CharacterList}"
                  SelectedItem="{Binding SelectedCharacter}" ItemContainerStyle="{StaticResource ContainerStyle}"
                  BorderBrush="Transparent" Background="Transparent" HorizontalContentAlignment="Stretch"

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dungeon_WPF.Views"
         mc:Ignorable="d"
-        Title="Dungeon" Height="450" Width="800">
+        Title="{Binding dungeon.Name}" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -16,14 +16,15 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Counter}"/>
-        <Label Grid.Column="3" Grid.Row="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Loot:" FontSize="30"/>
-        <Label Grid.Column="3" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Loot}"/>
-        <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Text}"/>
+        <StackPanel Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="Loot:" FontSize="30"/>
+            <Label Content="{Binding Loot}" FontSize="20"/>
+        </StackPanel>
+        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Text}" FontSize="30"/>
         <Button Grid.Column="3" Grid.Row="3" Margin="10" Command="{Binding}" CommandParameter="Step">Step</Button>
         <Button Grid.Column="1" Grid.Row="3" Margin="10" Command="{Binding}" CommandParameter="Run">Run</Button>
     </Grid>

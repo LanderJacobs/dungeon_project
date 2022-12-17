@@ -16,6 +16,7 @@ namespace Dungeon_WPF.ViewModels
     public class SelectionViewModel: BasisViewModel
     {
         public Window view;
+        HelpMethods help = new HelpMethods();
         IUnitOfWork unitofwork = new UnitOfWork(new DungeonEntities());
         private List<Character> _characterlist;
         private Character _selectedcharacter;
@@ -64,6 +65,9 @@ namespace Dungeon_WPF.ViewModels
                     _view.Show();
                     view.Close();
                     break;
+                case "Choose":
+                    OpenDungeons();
+                    break;
                 default:
                     break;
             }
@@ -75,6 +79,23 @@ namespace Dungeon_WPF.ViewModels
         {
             view = _view;
             CharacterList = unitofwork.CharacterRepo.GetAll().ToList();
+        }
+
+        public void OpenDungeons()
+        {
+            if (SelectedCharacter != null)
+            {
+                DungeonSelectionView _view = new DungeonSelectionView();
+                DungeonSelectionViewModel vm = new DungeonSelectionViewModel(_view, SelectedCharacter);
+                _view.DataContext = vm;
+                _view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                _view.Show();
+                view.Close();
+            }
+            else
+            {
+                help.Message("Don't forget to select a character first");
+            }
         }
     }
 }
