@@ -26,8 +26,6 @@ namespace Dungeon_WPF.DomainModels
         public int RestChance { get; set; }
         [NotMapped]
         public bool Dazed { get; set; }
-        [NotMapped]
-        public int CurrentHealth { get; set; }
         [Required]
         public int DungeonID { get; set;}
 

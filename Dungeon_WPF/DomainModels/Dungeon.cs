@@ -14,6 +14,8 @@ namespace Dungeon_WPF.DomainModels
         [Required]
         public string Name { get; set; }
         [Required]
+        public int MaxSteps { get; set; }
+        [Required]
         public int EnemyChance { get; set; }
         [Required]
         public int LootChance { get; set; }

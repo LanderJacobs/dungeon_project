@@ -19,5 +19,16 @@ namespace Dungeon_WPF.HelperFiles
             view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             view.ShowDialog();
         }    
+
+        public bool AskQuestion(string question, string yes, string no)
+        {
+            ChoiceView view = new ChoiceView();
+            ChoiceViewModel vm = new ChoiceViewModel(view, question, yes, no);
+            view.DataContext = vm;
+            view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            view.ShowDialog();
+
+            return view.DialogResult == true? true: false;
+        }
     }
 }

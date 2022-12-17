@@ -7,6 +7,28 @@
         mc:Ignorable="d"
         Title="DungeonSelectionView" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Name}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="Money:"/>
+        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding Money}"/>
+        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Attack:"/>
+        <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding Attack}"/>
+        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Health:"/>
+        <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding Health}"/>
+        <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Speed:"/>
+        <Label Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding Speed}"/>
+
+        <Label Grid.Row="0" Grid.Column="2" Content="Choose a dungeon" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40"/>
     </Grid>
 </Window>

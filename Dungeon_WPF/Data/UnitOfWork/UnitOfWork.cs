@@ -10,9 +10,9 @@ namespace Dungeon_WPF.Data.UnitOfWork
 {
     public class UnitOfWork: IUnitOfWork
     {
-        public IRepository<Character> _CharacterRepository { get; set; }
-        public IRepository<Enemy> _EnemyRepository { get; set; }
-        public IRepository<Dungeon> _DungeonRepository { get; set; }
+        public IRepository<Character> _CharacterRepo { get; set; }
+        public IRepository<Enemy> _EnemyRepo { get; set; }
+        public IRepository<Dungeon> _DungeonRepo { get; set; }
 
         public DungeonEntities DungeonEntities { get; }
         public UnitOfWork(DungeonEntities dungeonEntities) 
@@ -20,39 +20,39 @@ namespace Dungeon_WPF.Data.UnitOfWork
             this.DungeonEntities = dungeonEntities;
         }
 
-        public IRepository<Character> CharacterRepository
+        public IRepository<Character> CharacterRepo
         {
             get
             {
-                if (_CharacterRepository == null)
+                if (_CharacterRepo == null)
                 {
-                    _CharacterRepository = new Repository<Character>(DungeonEntities);
+                    _CharacterRepo = new Repository<Character>(DungeonEntities);
                 }
-                return _CharacterRepository;
+                return _CharacterRepo;
             }
         }
 
-        public IRepository<Enemy> EnemyRepository
+        public IRepository<Enemy> EnemyRepo
         {
             get
             {
-                if (_EnemyRepository == null)
+                if (_EnemyRepo == null)
                 {
-                    _EnemyRepository = new Repository<Enemy>(DungeonEntities);
+                    _EnemyRepo = new Repository<Enemy>(DungeonEntities);
                 }
-                return _EnemyRepository;
+                return _EnemyRepo;
             }
         }
 
-        public IRepository<Dungeon> DungeonRepository
+        public IRepository<Dungeon> DungeonRepo
         {
             get
             {
-                if (_DungeonRepository == null)
+                if (_DungeonRepo == null)
                 {
-                    _DungeonRepository = new Repository<Dungeon>(DungeonEntities);
+                    _DungeonRepo = new Repository<Dungeon>(DungeonEntities);
                 }
-                return _DungeonRepository;
+                return _DungeonRepo;
             }
         }
 

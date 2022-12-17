@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace Dungeon_WPF.Data.UnitOfWork
 {
-    public class IUnitOfWork: IDisposable
+    public interface IUnitOfWork: IDisposable
     {
         IRepository<Character> CharacterRepo { get; }
         IRepository<Enemy> EnemyRepo { get; }
         IRepository<Dungeon> DungeonRepo { get; }
 
-        void Dispose;
-
-        int Save;
+        int Save();
     }
 }

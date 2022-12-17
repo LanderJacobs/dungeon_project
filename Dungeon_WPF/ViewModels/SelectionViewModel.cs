@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Dungeon_WPF.HelperFiles;
+using Dungeon_WPF.Views;
 
 namespace Dungeon_WPF.ViewModels
 {
@@ -29,8 +30,13 @@ namespace Dungeon_WPF.ViewModels
         {
             switch (parameter.ToString())
             {
-                case "Start":
-                    //write your method;
+                case "Add":
+                    AddCharacterView _view = new AddCharacterView();
+                    AddCharacterViewModel vm = new AddCharacterViewModel(_view);
+                    _view.DataContext = vm;
+                    _view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    _view.Show();
+                    view.Close();
                     break;
                 default:
                     break;

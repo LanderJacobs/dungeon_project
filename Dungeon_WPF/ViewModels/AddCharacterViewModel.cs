@@ -1,4 +1,5 @@
 ﻿using Dungeon_WPF.HelperFiles;
+using Dungeon_WPF.Views;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -30,8 +31,12 @@ namespace Dungeon_WPF.ViewModels
         {
             switch (parameter.ToString())
             {
-                case "Start":
-                    //write your method;
+                case "Cancel":
+                    OpenSelectionView();
+                    break;
+                case "Add":
+                    //write add method
+                    OpenSelectionView();
                     break;
                 default:
                     break;
@@ -43,6 +48,16 @@ namespace Dungeon_WPF.ViewModels
         public AddCharacterViewModel(Window _view)
         {
             view = _view;
+        }
+
+        public void OpenSelectionView()
+        {
+            SelectionView _view = new SelectionView();
+            SelectionViewModel vm = new SelectionViewModel(_view);
+            _view.DataContext = vm;
+            _view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            _view.Show();
+            view.Close();
         }
     }
 }

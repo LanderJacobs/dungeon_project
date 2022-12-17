@@ -1,11 +1,11 @@
-﻿<Window x:Class="Dungeon_WPF.Views.AddCharacterView"
+﻿<Window x:Class="Dungeon_WPF.Views.ChoiceView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dungeon_WPF.Views"
         mc:Ignorable="d"
-        Title="AddCharacterView" Height="450" Width="800">
+        Title="Are You Sure?" Height="300" Width="500">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -15,13 +15,14 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="1" Grid.Row="4" Margin="10" Command="{Binding}" CommandParameter="Cancel">Cancel</Button>
-        <Button Grid.Column="3" Grid.Row="4" Margin="10" Command="{Binding}" CommandParameter="Add">Add</Button>
+        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" Content="{Binding Question}"/>
+        <Button Grid.Row="3" Grid.Column="1" Command="{Binding}" CommandParameter="Deny" Content="{Binding No}"/>
+        <Button Grid.Row="3" Grid.Column="3" Command="{Binding}" CommandParameter="Admit" Content="{Binding Yes}"/>
     </Grid>
 </Window>
