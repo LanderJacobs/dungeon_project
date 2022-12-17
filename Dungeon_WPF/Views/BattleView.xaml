@@ -7,6 +7,39 @@
         mc:Ignorable="d"
         Title="BattleView" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel  Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+            <Label Content="hp:" VerticalAlignment="Center" FontSize="30"/>
+            <Label Content="{Binding Health}" VerticalAlignment="Center" FontSize="40"/>
+        </StackPanel>
+        <StackPanel  Grid.Row="0" Grid.Column="3" Orientation="Horizontal">
+            <Label Content="hp:" VerticalAlignment="Center" FontSize="30"/>
+            <Label Content="{Binding EnemyHealth}" VerticalAlignment="Center" FontSize="40"/>
+        </StackPanel>
+        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding Text}"/>
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding Name}"/>
+        <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding EnemyName}"/>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Fight" Margin="20" Command="{Binding}" CommandParameter="Fight" IsEnabled="{Binding AllowButton}"/>
+            <Button Grid.Column="1" Content="Block" Margin="20" Command="{Binding}" CommandParameter="Block" IsEnabled="{Binding AllowButton}"/>
+            <Button Grid.Column="2" Content="Heal" Margin="20" Command="{Binding}" CommandParameter="Heal" IsEnabled="{Binding AllowButton}"/>
+            <Button Grid.Column="3" Content="Run" Margin="20" Command="{Binding}" CommandParameter="Run" IsEnabled="{Binding AllowButton}"/>
+        </Grid>
     </Grid>
 </Window>

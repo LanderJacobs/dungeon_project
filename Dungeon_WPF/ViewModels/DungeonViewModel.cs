@@ -113,7 +113,7 @@ namespace Dungeon_WPF.ViewModels
                 Text = "You just encountered an enemy!";
 
                 BattleView _view = new BattleView();
-                BattleViewModel vm = new BattleViewModel(_view);
+                BattleViewModel vm = new BattleViewModel(_view, character, dungeon.Id);
                 _view.DataContext = vm;
                 _view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 _view.ShowDialog();

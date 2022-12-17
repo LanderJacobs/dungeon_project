@@ -15,21 +15,6 @@ namespace Dungeon_WPF.Data
             optionsBuilder.UseSqlite("Data Source = DataFile.db");
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Character>()
-                .HasDiscriminator<string>("class")
-                .HasValue<Knight>("knight")
-                .HasValue<Fighter>("fighter")
-                .HasValue<Rogue>("rogue");
-
-            modelBuilder.Entity<Enemy>()
-                .HasDiscriminator<string>("kind")
-                .HasValue<SmallEnemy>("small")
-                .HasValue<MediumEnemy>("medium")
-                .HasValue<BigEnemy>("big");
-        }
-
         public DbSet<Character> Characters { get; set; }
         public DbSet<Enemy> Enemies { get; set; }
         public DbSet<Dungeon> Dungeons { get; set; }
