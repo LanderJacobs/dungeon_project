@@ -20,7 +20,7 @@ namespace Dungeon_WPF.ViewModels
         public Dungeon dungeon;
         public Character character;
         private string _text = "";
-        private int _counter;
+        private int _counter = 1;
         private int _loot;
 
         public int Loot
@@ -86,7 +86,6 @@ namespace Dungeon_WPF.ViewModels
         public DungeonViewModel(Window _view, Dungeon _dungeon, Character _character)
         {
             view = _view;
-            Counter = 1;
             Text = "Take a step";
             dungeon = _dungeon;
             this.character = _character;
@@ -118,10 +117,14 @@ namespace Dungeon_WPF.ViewModels
                 _view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 _view.ShowDialog();
 
-                if (_view.DialogResult == true)
+                if (character.Victory == true)
                 {
                     Counter++;
                     Text = "You won this fight!";
+                }
+                else
+                {
+                    Text = "Next time better luck";
                 }
 
                 if (character.CurrentHealth <= 0)

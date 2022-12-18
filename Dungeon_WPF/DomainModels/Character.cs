@@ -26,6 +26,8 @@ namespace Dungeon_WPF.DomainModels
         public int Health { get; set; }
         [NotMapped]
         public int CurrentHealth { get; set; }
+        [NotMapped]
+        public bool Victory { get; set; }
 
         //methods
         //you'll see the use of "this.ClassName", this used to be done with child-classes but was deleted because of too many errors
