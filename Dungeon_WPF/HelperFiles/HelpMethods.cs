@@ -41,7 +41,7 @@ namespace Dungeon_WPF.HelperFiles
         {
             List<Character> test = unitofwork.CharacterRepo.GetAll().ToList();
 
-            if (test == null)
+            if (test[0] == null)
             {
                 unitofwork.CharacterRepo.Add(new Character { Name = "Joe", ClassName = "Rogue", Money = 0, Attack = 6, Health = 12, Speed = 15 });
                 unitofwork.CharacterRepo.Add(new Character { Name = "Amanda", ClassName = "Knight", Money = 50, Attack = 10, Health = 15, Speed = 5 });
@@ -54,7 +54,11 @@ namespace Dungeon_WPF.HelperFiles
                 unitofwork.EnemyRepo.Add(new Enemy { Name = "Snail", Kind = "Small", Health = 6, Attack = 1, Speed = 1, AttackChance = 1, RestChance = 10, RunChance = 1, Attack2 = 0, Attack2Chance = 0, DungeonID = 2 });
                 unitofwork.EnemyRepo.Add(new Enemy { Name = "Butterfly", Kind = "Small", Health = 10, Attack = 2, Speed = 20, AttackChance = 2, RestChance = 8, RunChance = 10, Attack2 = 0, Attack2Chance = 0, DungeonID = 2 });
 
-                unitofwork.Save();
+                int save = unitofwork.Save();
+                if (save > 0)
+                {
+                    Console.WriteLine("It worked");
+                }
             }
         }
 
