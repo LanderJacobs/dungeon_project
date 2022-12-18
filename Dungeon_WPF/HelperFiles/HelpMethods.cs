@@ -43,8 +43,10 @@ namespace Dungeon_WPF.HelperFiles
 
             if (test == null)
             {
-                unitofwork.CharacterRepo.Add(new Character { Name = "Joe", ClassName = "Rogue", Money = 0, Attack = 6, Health = 12, Speed = 15 });
-                unitofwork.CharacterRepo.Add(new Character { Name = "Amanda", ClassName = "Knight", Money = 50, Attack = 10, Health = 15, Speed = 5 });
+                Character c1 = new Character { Name = "Joe", ClassName = "Rogue", Money = 0, Attack = 6, Health = 12, Speed = 15 };
+                unitofwork.CharacterRepo.Add(c1);
+                Character c2 = new Character { Name = "Amanda", ClassName = "Knight", Money = 50, Attack = 10, Health = 15, Speed = 5 };
+                unitofwork.CharacterRepo.Add(c2);
                 unitofwork.CharacterRepo.Add(new Character { Name = "Richie", ClassName = "Fighter", Money = 1000, Attack = 7, Health = 20, Speed = 7 });
                 unitofwork.DungeonRepo.Add(new Dungeon { Name = "Graveyard", MaxSteps = 50, EnemyChance = 10, LootChance = 5, ShortCutChance = 2, NothingChance = 30 });
                 unitofwork.DungeonRepo.Add(new Dungeon { Name = "Backyard", MaxSteps = 10, EnemyChance = 2, LootChance = 1, ShortCutChance = 0, NothingChance = 20 });
