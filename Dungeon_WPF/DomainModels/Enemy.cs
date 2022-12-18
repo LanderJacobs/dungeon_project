@@ -83,7 +83,7 @@ namespace Dungeon_WPF.DomainModels
             }
             else if (this.Kind == "Medium")
             {
-                if (currentHealth < this.Health && turn < 5)
+                if (currentHealth < this.Health && turn > 5)
                 {
                     return true;
                 }

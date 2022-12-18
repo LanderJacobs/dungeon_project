@@ -31,7 +31,7 @@ namespace Dungeon_WPF.DomainModels
 
         //methods
         //you'll see the use of "this.ClassName", this used to be done with child-classes but was deleted because of too many errors
-        public virtual int DamageCalculated()
+        public int DamageCalculated()
         {
             double damage = 5;
             if (this.ClassName == "Knight")
@@ -50,6 +50,37 @@ namespace Dungeon_WPF.DomainModels
                 return Convert.ToInt32(damage);
             }
             return Convert.ToInt32(damage);
+        }
+
+        public bool Block()
+        {
+            Random r = new Random();
+            int Chance = r.Next(0, this.Attack + this.Health + this.Speed);
+            if (this.ClassName == "Knight")
+            {
+                if (Chance <= Math.Ceiling(Convert.ToDouble(this.Attack + (this.Health / 2))))
+                {
+                    return true;
+                }
+                return false;
+            }
+            else if (this.ClassName == "Fighter")
+            {
+                if (Chance <= Math.Ceiling(Convert.ToDouble(this.Health + (this.Health / 2))))
+                {
+                    return true;
+                }
+                return false;
+            }
+            else if (this.ClassName == "Rogue")
+            {
+                if (Chance <= Math.Ceiling(Convert.ToDouble(this.Speed + (this.Health / 2))))
+                {
+                    return true;
+                }
+                return false;
+            }
+            return true;
         }
     }
 }

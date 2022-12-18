@@ -68,6 +68,9 @@ namespace Dungeon_WPF.ViewModels
                 case "Choose":
                     OpenDungeons();
                     break;
+                case "Delete":
+                    DeleteCharacter();
+                    break;
                 default:
                     break;
             }
@@ -95,6 +98,33 @@ namespace Dungeon_WPF.ViewModels
             else
             {
                 help.Message("Don't forget to select a character first");
+            }
+        }
+
+        public void DeleteCharacter()
+        {
+            if (SelectedCharacter != null)
+            {
+                bool answer = help.AskQuestion($"Are you sure you want to delete {SelectedCharacter.Name}?", "Definitely", "No");
+                if (answer)
+                {
+                    unitofwork.CharacterRepo.Delete(SelectedCharacter);
+                    int save = unitofwork.Save();
+                    if (save > 0)
+                    {
+                        help.Message($"{SelectedCharacter.Name} was deleted");
+                        SelectedCharacter = null;
+                        CharacterList = unitofwork.CharacterRepo.GetAll().ToList();
+                    }
+                    else
+                    {
+                        help.Message($"Oops, we couldn't delete {SelectedCharacter.Name} right now");
+                    }
+                }
+            }
+            else
+            {
+                help.Message("First select a character before deleting it");
             }
         }
     }

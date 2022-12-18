@@ -26,7 +26,7 @@
             </DataTemplate>
 
             <DataTemplate x:Key="DungeonChoice">
-                <Border BorderBrush="Black" Background="FloralWhite" BorderThickness="5" CornerRadius="5">
+                <Border BorderBrush="Black" Background="WhiteSmoke" BorderThickness="5" CornerRadius="5">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -63,7 +63,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Name}" FontSize="30"/>
+        
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Name}" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Money:"/>
@@ -72,14 +74,17 @@
             <StackPanel Orientation="Horizontal">
                 <Label Content="Attack:"/>
                 <Label Content="{Binding Attack}"/>
+                <Button Content="Add 1 Attack" Command="{Binding}" CommandParameter="AddAttack" Margin="10 0" Visibility="{Binding ShowButtons}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Health:"/>
                 <Label Content="{Binding Health}"/>
+                <Button Content="Add 1 Health" Command="{Binding}" CommandParameter="AddHealth" Margin="10 0" Visibility="{Binding ShowButtons}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Speed:"/>
                 <Label Content="{Binding Speed}"/>
+                <Button Content="Add 1 Speed" Command="{Binding}" CommandParameter="AddSpeed" Margin="10 0" Visibility="{Binding ShowButtons}"/>
             </StackPanel>
         </StackPanel>
         

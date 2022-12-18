@@ -108,30 +108,48 @@ namespace Dungeon_WPF.ViewModels
 
             if (Chance <= dungeon.EnemyChance)
             {
-                //get attacked by enemy
-                Text = "You just encountered an enemy!";
-
-                BattleView _view = new BattleView();
-                BattleViewModel vm = new BattleViewModel(_view, ref character, dungeon.Id);
-                _view.DataContext = vm;
-                _view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                _view.ShowDialog();
-
-                if (character.Victory == true)
+                try
                 {
-                    Counter++;
-                    Text = "You won this fight!";
-                }
-                else
-                {
-                    Text = "Next time better luck";
-                }
+                    //get attacked by enemy
+                    Text = "You just encountered an enemy!";
 
-                if (character.CurrentHealth <= 0)
-                {
-                    help.Message("Oh No, you blacked out and lost all your loot!");
-                    EndDungeon();
+                    //enemy is created here for gold calculation
+                    List<Enemy> list = unitofwork.EnemyRepo.GetAllWithRequirements(x => x.DungeonID == dungeon.Id).ToList();
+
+                    int RandomEnemy = r.Next(0, list.Count());
+                    Enemy enemy = list[RandomEnemy];
+
+                    BattleView _view = new BattleView();
+                    BattleViewModel vm = new BattleViewModel(_view, ref character, enemy);
+                    _view.DataContext = vm;
+                    _view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    _view.ShowDialog();
+
+                    // the rogue part is just a fun detail, the idea is that a rogue can sneak past an enemy and keep its progression
+                    if (character.Victory == true || character.ClassName == "Rogue")
+                    {
+                        Counter++;
+                    }
+                    if (character.Victory == true)
+                    {
+                        int difference = Convert.ToInt32((dungeon.LootChance / (dungeon.LootChance + dungeon.EnemyChance + dungeon.ShortCutChance + dungeon.NothingChance)) * enemy.Attack);
+                        int minGold = enemy.Attack - difference;
+                        int maxGold = enemy.Attack + difference;
+                        int enemyloot = r.Next(minGold, maxGold);
+                        Loot += enemyloot;
+                    }
+
+                    if (character.CurrentHealth <= 0)
+                    {
+                        EndDungeon();
+                    }
                 }
+                catch (Exception ex)
+                {
+                    // in case there are no enemies for this dungeon in the database
+                    Text = ex.Message;
+                }
+                
             }
             else if (Chance <= dungeon.EnemyChance + dungeon.LootChance)
             {
@@ -152,7 +170,14 @@ namespace Dungeon_WPF.ViewModels
             else
             {
                 Counter++;
-                Text = "Nothing happened!";
+                if (Counter%2 == 0)
+                {
+                    Text = "Nothing happened!";
+                }
+                else
+                {
+                    Text = "This place is really peaceful, sometimes...";
+                }
             }
 
             if (Counter >= dungeon.MaxSteps)
@@ -161,7 +186,12 @@ namespace Dungeon_WPF.ViewModels
                 character.Money += Loot;
                 // adding the loot to the character
                 unitofwork.CharacterRepo.Update(character);
-                EndDungeon();
+                int save = unitofwork.Save();
+                if (save > 0)
+                {
+                    help.Message("You took all the loot with you");
+                    EndDungeon();
+                }
             }
         }
 

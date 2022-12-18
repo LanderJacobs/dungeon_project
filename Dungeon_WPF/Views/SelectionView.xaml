@@ -49,15 +49,19 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Button Grid.Column="1" Grid.Row="1" Margin="50" Command="{Binding}" CommandParameter="Add">Add Character</Button>
-        <Button Grid.Column="1" Grid.Row="0" Margin="50" Command="{Binding}" CommandParameter="Choose">Choose Character</Button>
-        <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" ItemsSource="{Binding CharacterList}"
+        <ListBox Grid.Column="0" ItemsSource="{Binding CharacterList}"
                  SelectedItem="{Binding SelectedCharacter}" ItemContainerStyle="{StaticResource ContainerStyle}"
                  BorderBrush="Transparent" Background="Transparent" HorizontalContentAlignment="Stretch"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Margin="30" Command="{Binding}" CommandParameter="Choose">Choose Character</Button>
+            <Button Grid.Row="1" Margin="30" Command="{Binding}" CommandParameter="Delete">Delete Character</Button>
+            <Button Grid.Row="2" Margin="30" Command="{Binding}" CommandParameter="Add">Add Character</Button>
+        </Grid>
     </Grid>
 </Window>

@@ -25,7 +25,17 @@ namespace Dungeon_WPF.ViewModels
         private string _money;
         private List<Dungeon> _dungeonlist;
         private Dungeon _selecteddungeon;
+        private string _showbuttons;
 
+        public string ShowButtons
+        {
+            get { return _showbuttons; }
+            set 
+            { 
+                _showbuttons = value;
+                NotifyPropertyChanged();
+            }
+        }
         public Dungeon SelectedDungeon
         {
             get { return _selecteddungeon; }
@@ -50,6 +60,7 @@ namespace Dungeon_WPF.ViewModels
             set
             {
                 _money = value;
+                CheckMoney();
                 NotifyPropertyChanged();
             }
         }
@@ -119,6 +130,15 @@ namespace Dungeon_WPF.ViewModels
                     _view.Show();
                     view.Close();
                     break;
+                case "AddAttack":
+                    AddAttack();
+                    break;
+                case "AddHealth":
+                    AddHealth();
+                    break;
+                case "AddSpeed":
+                    AddSpeed();
+                    break;
                 default:
                     break;
             }
@@ -136,6 +156,7 @@ namespace Dungeon_WPF.ViewModels
             Attack= character.Attack.ToString();
             Health = character.Health.ToString();
             Speed= character.Speed.ToString();
+            CheckMoney();
 
             DungeonList = unitofwork.DungeonRepo.GetAll().ToList();
         }
@@ -154,6 +175,90 @@ namespace Dungeon_WPF.ViewModels
             else
             {
                 help.Message("Don't forget to select a Dungeon first!");
+            }
+        }
+
+        public void AddAttack()
+        {
+            bool answer = help.AskQuestion("Are you sure you want to improve your Attack, this will cost you 50 gold", "Yes", "No");
+            if (answer)
+            {
+                character.Attack++;
+                character.Money -= 50;
+                unitofwork.CharacterRepo.Update(character);
+                int save = unitofwork.Save();
+                if (save > 0)
+                {
+                    Money = character.Money.ToString();
+                    Attack = character.Attack.ToString();
+                    help.Message("Successfully improved your Attack!");
+                }
+                else
+                {
+                    help.Message("Oops something went wrong, cannot upgrade your Attack right now");
+                    character.Attack--;
+                    character.Money += 50;
+                }
+            }
+        }
+
+        public void AddHealth()
+        {
+            bool answer = help.AskQuestion("Are you sure you want to improve your Health, this will cost you 50 gold", "Yes", "No");
+            if (answer)
+            {
+                character.Health++;
+                character.Money -= 50;
+                unitofwork.CharacterRepo.Update(character);
+                int save = unitofwork.Save();
+                if (save > 0)
+                {
+                    Money = character.Money.ToString();
+                    Health = character.Health.ToString();
+                    help.Message("Successfully improved your Health!");
+                }
+                else
+                {
+                    help.Message("Oops something went wrong, cannot upgrade your Health right now");
+                    character.Health--;
+                    character.Money += 50;
+                }
+            }
+        }
+
+        public void AddSpeed()
+        {
+            bool answer = help.AskQuestion("Are you sure you want to improve your Speed, this will cost you 50 gold", "Yes", "No");
+            if (answer)
+            {
+                character.Speed++;
+                character.Money -= 50;
+                unitofwork.CharacterRepo.Update(character);
+                int save = unitofwork.Save();
+                if (save > 0)
+                {
+                    Money = character.Money.ToString();
+                    Speed = character.Speed.ToString();
+                    help.Message("Successfully improved your Speed!");
+                }
+                else
+                {
+                    help.Message("Oops something went wrong, cannot upgrade your Speed right now");
+                    character.Speed--;
+                    character.Money += 50;
+                }
+            }
+        }
+
+        public void CheckMoney()
+        {
+            if (character.Money >= 50)
+            {
+                ShowButtons = "Visible";
+            }
+            else
+            {
+                ShowButtons = "Hidden";
             }
         }
     }
