@@ -32,4 +32,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Dungeons_Project
-        path: /home/runner/work/TestCiCdExe/TestCiCdExe/test_WpfApp1/bin/Release/net6.0-windows/win-x64/publish/
+        path: /home/runner/work/dungeon_project/dungeon_project/Dungeon_WPF/bin/Release/net6.0-windows/win-x64/publish/
