@@ -80,6 +80,7 @@ namespace Dungeon_WPF.ViewModels
 
         public SelectionViewModel(Window _view)
         {
+            help.InsertUponCreate();
             view = _view;
             CharacterList = unitofwork.CharacterRepo.GetAll().ToList();
         }
