@@ -39,25 +39,18 @@ namespace Dungeon_WPF.HelperFiles
 
         public void InsertUponCreate()
         {
-            List<Dungeon> test = unitofwork.DungeonRepo.GetAll().ToList();
+            unitofwork.CharacterRepo.Add(new Character { Name = "Joe", ClassName = "Rogue", Money = 0, Attack = 6, Health = 12, Speed = 15 });
+            unitofwork.CharacterRepo.Add(new Character { Name = "Amanda", ClassName = "Knight", Money = 50, Attack = 10, Health = 15, Speed = 5 });
+            unitofwork.CharacterRepo.Add(new Character { Name = "Richie", ClassName = "Fighter", Money = 1000, Attack = 7, Health = 20, Speed = 7 });
+            unitofwork.DungeonRepo.Add(new Dungeon { Name = "Graveyard", MaxSteps = 50, EnemyChance = 10, LootChance = 5, ShortCutChance = 2, NothingChance = 30 });
+            unitofwork.DungeonRepo.Add(new Dungeon { Name = "Backyard", MaxSteps = 10, EnemyChance = 2, LootChance = 1, ShortCutChance = 0, NothingChance = 20 });
+            unitofwork.EnemyRepo.Add(new Enemy { Name = "Bat", Kind = "Small", Health = 10, Attack = 2, Speed = 16, AttackChance = 2, RestChance = 14, RunChance = 10, Attack2 = 2, Attack2Chance = 2, DungeonID = 1 });
+            unitofwork.EnemyRepo.Add(new Enemy { Name = "Zombie", Kind = "Medium", Health = 16, Attack = 8, Speed = 4, AttackChance = 10, RestChance = 10, RunChance = 10, Attack2 = 8, Attack2Chance = 10, DungeonID = 1 });
+            unitofwork.EnemyRepo.Add(new Enemy { Name = "Big Zombie", Kind = "Big", Health = 20, Attack = 14, Speed = 6, AttackChance = 14, RestChance = 4, RunChance = 0, Attack2 = 18, Attack2Chance = 18, DungeonID = 1 });
+            unitofwork.EnemyRepo.Add(new Enemy { Name = "Snail", Kind = "Small", Health = 6, Attack = 1, Speed = 1, AttackChance = 1, RestChance = 10, RunChance = 1, Attack2 = 0, Attack2Chance = 0, DungeonID = 2 });
+            unitofwork.EnemyRepo.Add(new Enemy { Name = "Butterfly", Kind = "Small", Health = 10, Attack = 2, Speed = 20, AttackChance = 2, RestChance = 8, RunChance = 10, Attack2 = 0, Attack2Chance = 0, DungeonID = 2 });
 
-            if (test == null)
-            {
-                Character c1 = new Character { Name = "Joe", ClassName = "Rogue", Money = 0, Attack = 6, Health = 12, Speed = 15 };
-                unitofwork.CharacterRepo.Add(c1);
-                Character c2 = new Character { Name = "Amanda", ClassName = "Knight", Money = 50, Attack = 10, Health = 15, Speed = 5 };
-                unitofwork.CharacterRepo.Add(c2);
-                unitofwork.CharacterRepo.Add(new Character { Name = "Richie", ClassName = "Fighter", Money = 1000, Attack = 7, Health = 20, Speed = 7 });
-                unitofwork.DungeonRepo.Add(new Dungeon { Name = "Graveyard", MaxSteps = 50, EnemyChance = 10, LootChance = 5, ShortCutChance = 2, NothingChance = 30 });
-                unitofwork.DungeonRepo.Add(new Dungeon { Name = "Backyard", MaxSteps = 10, EnemyChance = 2, LootChance = 1, ShortCutChance = 0, NothingChance = 20 });
-                unitofwork.EnemyRepo.Add(new Enemy { Name = "Bat", Kind = "Small", Health = 10, Attack = 2, Speed = 16, AttackChance = 2, RestChance = 14, RunChance = 10, Attack2 = 2, Attack2Chance = 2 , DungeonID = 1 });
-                unitofwork.EnemyRepo.Add(new Enemy { Name = "Zombie", Kind = "Medium", Health = 16, Attack = 8, Speed = 4, AttackChance = 10, RestChance = 10, RunChance = 10, Attack2 = 8, Attack2Chance = 10, DungeonID = 1 });
-                unitofwork.EnemyRepo.Add(new Enemy { Name = "Big Zombie", Kind = "Big", Health = 20, Attack = 14, Speed = 6, AttackChance = 14, RestChance = 4, RunChance = 0, Attack2 = 18, Attack2Chance = 18, DungeonID = 1 });
-                unitofwork.EnemyRepo.Add(new Enemy { Name = "Snail", Kind = "Small", Health = 6, Attack = 1, Speed = 1, AttackChance = 1, RestChance = 10, RunChance = 1, Attack2 = 0, Attack2Chance = 0, DungeonID = 2 });
-                unitofwork.EnemyRepo.Add(new Enemy { Name = "Butterfly", Kind = "Small", Health = 10, Attack = 2, Speed = 20, AttackChance = 2, RestChance = 8, RunChance = 10, Attack2 = 0, Attack2Chance = 0, DungeonID = 2 });
-
-                int save = unitofwork.Save();
-            }
+            int save = unitofwork.Save();
         }
 
         //supposedly this pauses the program from running, does not work
