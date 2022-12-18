@@ -55,10 +55,6 @@ namespace Dungeon_WPF.HelperFiles
                 unitofwork.EnemyRepo.Add(new Enemy { Name = "Butterfly", Kind = "Small", Health = 10, Attack = 2, Speed = 20, AttackChance = 2, RestChance = 8, RunChance = 10, Attack2 = 0, Attack2Chance = 0, DungeonID = 2 });
 
                 int save = unitofwork.Save();
-                if (save > 0)
-                {
-                    Console.WriteLine("It worked");
-                }
             }
         }
 
