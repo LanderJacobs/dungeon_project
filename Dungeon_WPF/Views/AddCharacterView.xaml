@@ -1,0 +1,111 @@
+﻿<Window x:Class="Dungeon_WPF.Views.AddCharacterView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dungeon_WPF.Views"
+        mc:Ignorable="d"
+        Title="Add a Character" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Name:" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="ClassName:" VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" ItemsSource="{Binding ClassList}" SelectedItem="{Binding ClassName}" VerticalAlignment="Center"/>
+        </Grid>
+
+        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Content="{Binding Text}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <Grid Grid.Row="2" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Points to add:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label Grid.Column="1" Content="{Binding Points}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+        
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3" Content="Attack" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Attack}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Grid.Row="1" Grid.Column="0" Command="{Binding}" CommandParameter="RemoveAttack" Padding="10 5" Margin="10">-</Button>
+            <Button Grid.Row="1" Grid.Column="2" Command="{Binding}" CommandParameter="AddAttack" Padding="10 5" Margin="10">+</Button>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3" Content="Health" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Health}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Grid.Row="1" Grid.Column="0" Command="{Binding}" CommandParameter="RemoveHealth" Padding="10 5" Margin="10">-</Button>
+            <Button Grid.Row="1" Grid.Column="2" Command="{Binding}" CommandParameter="AddHealth" Padding="10 5" Margin="10">+</Button>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3" Content="Speed" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Speed}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Grid.Row="1" Grid.Column="0" Command="{Binding}" CommandParameter="RemoveSpeed" Padding="10 5" Margin="10">-</Button>
+            <Button Grid.Row="1" Grid.Column="2" Command="{Binding}" CommandParameter="AddSpeed" Padding="10 5" Margin="10">+</Button>
+        </Grid>
+        
+        <Grid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="10" Command="{Binding}" CommandParameter="Cancel">Cancel</Button>
+            <Button Grid.Column="1" Margin="10" Command="{Binding}" CommandParameter="Add">Add</Button>
+        </Grid>
+    </Grid>
+</Window>
