@@ -81,19 +81,6 @@ namespace Dungeon_WPF.ViewModels
         public SelectionViewModel(Window _view)
         {
             view = _view;
-
-            // for some reason I can only insert data by using it here so I am using this place to insert some data in the app
-            Character c1 = new Character { Name = "Joe", ClassName = "Rogue", Money = 0, Attack = 6, Health = 12, Speed = 15 };
-            unitofwork.CharacterRepo.Add(c1);
-            Character c2 = new Character { Name = "Amanda", ClassName = "Knight", Money = 50, Attack = 10, Health = 15, Speed = 5 };
-            unitofwork.CharacterRepo.Add(c2);
-            unitofwork.CharacterRepo.Add(new Character { Name = "Richie", ClassName = "Fighter", Money = 1000, Attack = 7, Health = 20, Speed = 7 });
-            int save = unitofwork.Save();
-            if (save > 0)
-            {
-                help.Message("it worked");
-            }
-
             CharacterList = unitofwork.CharacterRepo.GetAll().ToList();
         }
 
