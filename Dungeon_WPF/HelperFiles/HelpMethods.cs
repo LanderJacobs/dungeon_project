@@ -39,9 +39,11 @@ namespace Dungeon_WPF.HelperFiles
 
         public void InsertUponCreate()
         {
-            Dungeon test = unitofwork.DungeonRepo.Get(x => x.Id == 1);
-
-            if (string.IsNullOrEmpty(test.Name))
+            try
+            {
+                Dungeon test = unitofwork.DungeonRepo.Get(x => x.Id == 1);
+            }
+            catch (Exception)
             {
                 unitofwork.CharacterRepo.Add(new Character { Name = "Joe", ClassName = "Rogue", Money = 0, Attack = 6, Health = 12, Speed = 15 });
                 unitofwork.CharacterRepo.Add(new Character { Name = "Amanda", ClassName = "Knight", Money = 50, Attack = 10, Health = 15, Speed = 5 });
