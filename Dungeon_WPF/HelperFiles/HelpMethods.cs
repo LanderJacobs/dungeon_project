@@ -53,6 +53,8 @@ namespace Dungeon_WPF.HelperFiles
                 unitofwork.EnemyRepo.Add(new Enemy { Name = "Big Zombie", Kind = "Big", Health = 20, Attack = 14, Speed = 6, AttackChance = 14, RestChance = 4, RunChance = 0, Attack2 = 18, Attack2Chance = 18, DungeonID = 1 });
                 unitofwork.EnemyRepo.Add(new Enemy { Name = "Snail", Kind = "Small", Health = 6, Attack = 1, Speed = 1, AttackChance = 1, RestChance = 10, RunChance = 1, Attack2 = 0, Attack2Chance = 0, DungeonID = 2 });
                 unitofwork.EnemyRepo.Add(new Enemy { Name = "Butterfly", Kind = "Small", Health = 10, Attack = 2, Speed = 20, AttackChance = 2, RestChance = 8, RunChance = 10, Attack2 = 0, Attack2Chance = 0, DungeonID = 2 });
+
+                unitofwork.Save();
             }
         }
 
