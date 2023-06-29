@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using Dungeon_WPF.HelperFiles;
 using Dungeon_WPF.Views;
 
 namespace Dungeon_WPF.ViewModels
 {
-    internal class StartViewModel: BasisViewModel
+    public class StartViewModel: BasisViewModel
     {
         public Window view;
+        public SoundPlayer sp;
 
         #region helperfunctions
         public override string this[string columnName]
@@ -32,6 +37,8 @@ namespace Dungeon_WPF.ViewModels
             switch (parameter.ToString())
             {
                 case "Start":
+                    sp.Stop();
+
                     SelectionView _view = new SelectionView();
                     SelectionViewModel vm = new SelectionViewModel(_view);
                     _view.DataContext = vm;
@@ -49,6 +56,11 @@ namespace Dungeon_WPF.ViewModels
         public StartViewModel(Window _view)
         {
             view = _view;
+
+            sp = new SoundPlayer(Properties.Resources.silent_wood);
+            sp.Load();
+            sp.PlayLooping();
+
         }
     }
 }

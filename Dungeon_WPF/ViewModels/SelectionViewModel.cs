@@ -39,6 +39,7 @@ namespace Dungeon_WPF.ViewModels
                 NotifyPropertyChanged();
             }
         }
+
         #region helperfunctions
         public override string this[string columnName]
         {
