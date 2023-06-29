@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dungeon_WPF.Views"
         mc:Ignorable="d"
-        Title="{Binding dungeon.Name}" Height="450" Width="800">
+        Title="{Binding DungeonName}" Height="450" Width="800">
+    <Window.InputBindings>
+        <KeyBinding Key="Space" Command="{Binding}" CommandParameter="Step"/>
+        <KeyBinding Key="X" Command="{Binding}" CommandParameter="Run"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -19,14 +23,22 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
         <Label Grid.Column="2" Grid.Row="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Counter}" FontSize="30" FontWeight="Bold"/>
         <StackPanel Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="Loot:" FontSize="30"/>
             <Label Content="{Binding Loot}" FontSize="30"/>
             <Label Content="Gold" FontSize="30"/>
         </StackPanel>
-        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Text}" FontSize="30"/>
-        <Button Grid.Column="3" Grid.Row="3" Margin="10" Command="{Binding}" CommandParameter="Step">Step</Button>
-        <Button Grid.Column="1" Grid.Row="3" Margin="10" Command="{Binding}" CommandParameter="Run">Run</Button>
+
+        <Image Grid.Column="0" Grid.Row="1" Source="{Binding CharImage}"/>
+
+        <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Text="{Binding Text}" TextWrapping="Wrap" FontSize="20"/>
+        <Button Grid.Column="3" Grid.Row="3" Margin="10" Command="{Binding}" CommandParameter="Step"
+                IsEnabled="{Binding ButtonAllowed}">Step</Button>
+        <Button Grid.Column="1" Grid.Row="3" Margin="10" Command="{Binding}" CommandParameter="Run"
+                IsEnabled="{Binding ButtonAllowed}">Run</Button>
+
     </Grid>
 </Window>

@@ -43,9 +43,9 @@ namespace Dungeon_WPF.HelperFiles
 
             if (test.Count < 1)
             {
-                unitofwork.CharacterRepo.Add(new Character { Name = "Joe", ClassName = "Rogue", Money = 0, Attack = 6, Health = 12, Speed = 15 });
-                unitofwork.CharacterRepo.Add(new Character { Name = "Amanda", ClassName = "Knight", Money = 50, Attack = 10, Health = 15, Speed = 5 });
-                unitofwork.CharacterRepo.Add(new Character { Name = "Richie", ClassName = "Fighter", Money = 1000, Attack = 7, Health = 20, Speed = 7 });
+                unitofwork.CharacterRepo.Add(new Character { Name = "Harry", ClassName = "Rogue", Money = 0, Attack = 6, Health = 12, Speed = 15 });
+                unitofwork.CharacterRepo.Add(new Character { Name = "Mary", ClassName = "Knight", Money = 50, Attack = 10, Health = 15, Speed = 5 });
+                unitofwork.CharacterRepo.Add(new Character { Name = "Barry", ClassName = "Fighter", Money = 1000, Attack = 7, Health = 20, Speed = 7 });
                 unitofwork.DungeonRepo.Add(new Dungeon { Name = "Graveyard", MaxSteps = 50, EnemyChance = 10, LootChance = 5, ShortCutChance = 2, NothingChance = 30 });
                 unitofwork.DungeonRepo.Add(new Dungeon { Name = "Backyard", MaxSteps = 10, EnemyChance = 2, LootChance = 1, ShortCutChance = 0, NothingChance = 20 });
                 unitofwork.EnemyRepo.Add(new Enemy { Name = "Bat", Kind = "Small", Health = 10, Attack = 2, Speed = 16, AttackChance = 2, RestChance = 14, RunChance = 10, Attack2 = 2, Attack2Chance = 2, DungeonID = 1 });
@@ -58,17 +58,5 @@ namespace Dungeon_WPF.HelperFiles
             }
         }
 
-        //supposedly this pauses the program from running, does not work
-        public void Pause(int seconds)
-        {
-            TimeSpan time = new TimeSpan(0, 0, seconds);
-            DateTime end = DateTime.Now + time;
-
-            //should pause for the time specified
-            while (DateTime.Now <= end) 
-            {
-                System.Threading.Thread.Sleep(1000);
-            }
-        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Dungeon_WPF.Data;
@@ -18,6 +19,8 @@ namespace Dungeon_WPF.ViewModels
         HelpMethods help = new HelpMethods();
         IUnitOfWork unitofwork = new UnitOfWork(new DungeonEntities());
         public Character character;
+        public Thread moveThread;
+
         private string _name;
         private string _attack;
         private string _health;
@@ -26,7 +29,17 @@ namespace Dungeon_WPF.ViewModels
         private List<Dungeon> _dungeonlist;
         private Dungeon _selecteddungeon;
         private string _showbuttons;
+        public string _imageLink;
 
+        public string ImageLink
+        {
+            get { return _imageLink; }
+            set 
+            {
+                _imageLink = value;
+                NotifyPropertyChanged();
+            }
+        }
         public string ShowButtons
         {
             get { return _showbuttons; }
@@ -120,9 +133,13 @@ namespace Dungeon_WPF.ViewModels
             switch (parameter.ToString())
             {
                 case "Choose":
+                    moveThread.Interrupt();
+
                     OpenDungeon();
                     break;
                 case "Cancel":
+                    moveThread.Interrupt();
+
                     SelectionView _view = new SelectionView();
                     SelectionViewModel vm = new SelectionViewModel(_view);
                     _view.DataContext = vm;
@@ -140,6 +157,7 @@ namespace Dungeon_WPF.ViewModels
                     AddSpeed();
                     break;
                 default:
+                    moveThread.Interrupt();
                     break;
             }
         }
@@ -156,7 +174,12 @@ namespace Dungeon_WPF.ViewModels
             Attack= character.Attack.ToString();
             Health = character.Health.ToString();
             Speed= character.Speed.ToString();
+
             CheckMoney();
+
+            moveThread = new Thread(new ThreadStart(Move));
+            moveThread.IsBackground = true;
+            moveThread.Start();
 
             DungeonList = unitofwork.DungeonRepo.GetAll().ToList();
         }
@@ -259,6 +282,27 @@ namespace Dungeon_WPF.ViewModels
             else
             {
                 ShowButtons = "Hidden";
+            }
+        }
+
+        public void Move()
+        {
+            try
+            {
+                while(true)
+                {
+                    for (int i = 1; i <= 3; i++)
+                    {
+                        ImageLink = character.LinkImage(true, i);
+                        Thread.Sleep(100);
+                    }
+                    ImageLink = character.LinkImage(true, 2);
+                    Thread.Sleep(100);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Stopped moving");
             }
         }
     }

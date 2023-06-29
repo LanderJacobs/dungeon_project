@@ -58,15 +58,17 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        
-        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Name}" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        
-        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Name}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" TextWrapping="WrapWithOverflow" Background="Transparent"/>
+        <Image Grid.Row="0" Grid.Column="0" Source="{Binding ImageLink}" MinHeight="95"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Money:"/>
                 <Label Content="{Binding Money}"/>
@@ -88,12 +90,12 @@
             </StackPanel>
         </StackPanel>
         
-        <Label Grid.Row="0" Grid.Column="1" Content="Choose a dungeon" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40"/>
-        <ListBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" ItemContainerStyle="{StaticResource ContainerStyle}"
+        <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Content="Choose a dungeon" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40"/>
+        <ListBox Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" ItemContainerStyle="{StaticResource ContainerStyle}"
                  ItemsSource="{Binding DungeonList}" SelectedItem="{Binding SelectedDungeon}"
                  BorderBrush="Transparent" Background="Transparent" HorizontalContentAlignment="Stretch"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        <Button Grid.Row="2" Grid.Column="0" Margin="10" Content="Choose Dungeon" Command="{Binding}" CommandParameter="Choose"/>
-        <Button Grid.Row="3" Grid.Column="0" Margin="10" Content="Cancel" Command="{Binding}" CommandParameter="Cancel"/>
+        <Button Grid.Row="3" Grid.Column="0" Margin="10" Content="Choose Dungeon" Command="{Binding}" CommandParameter="Choose"/>
+        <Button Grid.Row="4" Grid.Column="0" Margin="10" Content="Go Back" Command="{Binding}" CommandParameter="Cancel"/>
     </Grid>
 </Window>

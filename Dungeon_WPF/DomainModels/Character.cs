@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,16 @@ namespace Dungeon_WPF.DomainModels
         public int CurrentHealth { get; set; }
         [NotMapped]
         public bool Victory { get; set; }
+        [NotMapped]
+        public String ImageLink {
+            get
+            {
+                // if I ever find a way that can correctly check the existence of a file, not File.exists() apparently,
+                // I'll use path as a variable to check the existence;
+                String path = @"..\HelperFiles\images\character\" + this.ClassName.ToLower() + @"\rest_1.png";
+                return path;
+            }
+        }
 
         //methods
         //you'll see the use of "this.ClassName", this used to be done with child-classes but was deleted because of too many errors
@@ -81,6 +92,13 @@ namespace Dungeon_WPF.DomainModels
                 return false;
             }
             return true;
+        }
+
+        public String LinkImage(bool rest, int stage)
+        {
+            String form = rest ? "rest_" : "attack_";
+            form += stage.ToString() + ".png";
+            return @"..\HelperFiles\images\character\" + this.ClassName.ToLower() + @"\" + form;
         }
     }
 }
