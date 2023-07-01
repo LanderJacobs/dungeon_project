@@ -22,6 +22,7 @@ namespace Dungeon_WPF.ViewModels
         public Dungeon dungeon;
         public Character character;
         public Thread stepThread;
+        public bool skipText;
 
         private string _text = "";
         private int _counter = 1;
@@ -29,7 +30,17 @@ namespace Dungeon_WPF.ViewModels
         private bool _buttonAllowed;
         private string _dungeonName;
         private string _charImage;
+        private int _maxSteps;
 
+        public int MaxSteps
+        {
+            get { return _maxSteps; }
+            set
+            {
+                _maxSteps = value;
+                NotifyPropertyChanged();
+            }
+        }
         public string CharImage
         {
             get { return _charImage; }
@@ -112,15 +123,25 @@ namespace Dungeon_WPF.ViewModels
             switch (parameter.ToString())
             {
                 case "Step":
-                    ButtonAllowed = false;
 
-                    stepThread = new Thread(new ThreadStart(TakeStep));
-                    stepThread.IsBackground = true;
-                    stepThread.Start();
+                    if (ButtonAllowed)
+                    {
+                        ButtonAllowed = false;
+
+                        stepThread = new Thread(new ThreadStart(TakeStep));
+                        stepThread.IsBackground = true;
+                        stepThread.Start();
+                    }else if (!skipText)
+                    {
+                        skipText = true;
+                    }
 
                     break;
                 case "Run":
-                    Run();
+                    if (ButtonAllowed)
+                    {
+                        Run();
+                    }
                     break;
                 default:
                     break;
@@ -136,12 +157,14 @@ namespace Dungeon_WPF.ViewModels
 
             dungeon = _dungeon;
             DungeonName = dungeon.Name;
+            MaxSteps = dungeon.MaxSteps;
 
             this.character = _character;
             character.CurrentHealth = character.Health;
             CharImage = character.ImageLink;
 
             ButtonAllowed = true;
+            skipText = false;
         }
 
         public void Run()
@@ -170,13 +193,16 @@ namespace Dungeon_WPF.ViewModels
                 if (Chance <= dungeon.EnemyChance)
                 {
                     //get attacked by enemy
-                    Text = "You just encountered an enemy!";
+                    WriteText("You just encountered an enemy!");
 
                     //enemy is created here for gold calculation
                     List<Enemy> list = unitofwork.EnemyRepo.GetAllWithRequirements(x => x.DungeonID == dungeon.Id).ToList();
 
                     int RandomEnemy = r.Next(0, list.Count());
                     Enemy enemy = list[RandomEnemy];
+
+                    //animation before finding the enemy
+                    Thread.Sleep(2000);
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
@@ -219,33 +245,31 @@ namespace Dungeon_WPF.ViewModels
                     int loot = r.Next(minGold, maxGold);
                     Loot += loot;
                     Counter++;
-                    Text = $"You found {loot} gold on the ground";
+
+                    WriteText($"You found {loot} gold on the ground");
                 }
                 else if (Chance <= dungeon.EnemyChance + dungeon.LootChance + dungeon.ShortCutChance)
                 {
                     //take multiple steps (= a shortcut)
                     Counter += 5;
-                    Text = "You found a shortcut and took multiple steps at once";
+                    WriteText("You found a shortcut and took multiple steps at once");
                 }
                 else
                 {
                     Counter++;
                     if (Counter % 2 == 0)
                     {
-                        Text = "Nothing happened!";
+                        WriteText("Nothing happened!");
                     }
                     else
                     {
-                        Text = "This place is really peaceful, sometimes...";
+                        WriteText("This place is really peaceful, sometimes...");
                     }
                 }
 
                 if (Counter >= dungeon.MaxSteps)
                 {
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        help.Message("Well done, you finished this dungeon alive!");
-                    });
+                    Thread.Sleep(2000);
 
                     character.Money += Loot;
                     
@@ -256,7 +280,7 @@ namespace Dungeon_WPF.ViewModels
                     {
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            help.Message("You took all the loot with you");
+                            help.Message("Well done, you finished this dungeon alive!\nYou took all the loot with you");
                             EndDungeon();
                         });
                     }
@@ -285,6 +309,25 @@ namespace Dungeon_WPF.ViewModels
             _view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             _view.Show();
             view.Close();
+        }
+
+        public void WriteText(string text)
+        {
+            Text = "";
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (!skipText)
+                {
+                    Text += text[i];
+                    Thread.Sleep(20);
+                }
+                else
+                {
+                    Text = text;
+                    skipText = false;
+                    break;
+                }
+            }
         }
     }
 }

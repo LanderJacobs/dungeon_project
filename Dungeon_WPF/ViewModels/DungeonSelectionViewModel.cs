@@ -156,6 +156,26 @@ namespace Dungeon_WPF.ViewModels
                 case "AddSpeed":
                     AddSpeed();
                     break;
+                case "Up":
+                    try
+                    {
+                        GoUp();
+                    }
+                    catch (Exception)
+                    {
+                        help.Message("You were not able to select a dungeon");
+                    }
+                    break;
+                case "Down":
+                    try
+                    {
+                        GoDown();
+                    }
+                    catch (Exception)
+                    {
+                        help.Message("You were not able to select a dungeon");
+                    }
+                    break;
                 default:
                     moveThread.Interrupt();
                     break;
@@ -167,7 +187,7 @@ namespace Dungeon_WPF.ViewModels
         public DungeonSelectionViewModel(Window _view, Character _character)
         {
             view = _view;
-            // This is done so we can see the updated Money-count
+            // This is done so we can see the updated Money-count after a dungeon
             character = unitofwork.CharacterRepo.Get(x => x.Id == _character.Id);
             Name = character.Name;
             Money = character.Money.ToString();
@@ -182,6 +202,8 @@ namespace Dungeon_WPF.ViewModels
             moveThread.Start();
 
             DungeonList = unitofwork.DungeonRepo.GetAll().ToList();
+            DungeonList = DungeonList.OrderBy(x => x.MaxSteps).ToList();
+            SelectedDungeon = DungeonList[0];
         }
 
         public void OpenDungeon()
@@ -284,6 +306,46 @@ namespace Dungeon_WPF.ViewModels
                 ShowButtons = "Hidden";
             }
         }
+
+        public void GoUp()
+        {
+            for (int i = 0; i < DungeonList.Count; i++)
+            {
+                if (SelectedDungeon == DungeonList[i])
+                {
+                    if (i == 0)
+                    {
+                        SelectedDungeon = DungeonList[DungeonList.Count - 1];
+                    }
+                    else
+                    {
+                        SelectedDungeon = DungeonList[i-1];
+                    }
+                    break;
+                }
+            }
+        }
+
+        public void GoDown()
+        {
+            for (int i = 0; i < DungeonList.Count; i++)
+            {
+                if (SelectedDungeon.Equals(DungeonList[i]))
+                {
+                    if (i == DungeonList.Count - 1)
+                    {
+                        SelectedDungeon = DungeonList[0];
+                    }
+                    else
+                    {
+                        SelectedDungeon = DungeonList[i+1];
+                    }
+                    break;
+                }
+            }
+        }
+
+        //methods within threads
 
         public void Move()
         {
