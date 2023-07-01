@@ -79,8 +79,8 @@ namespace Dungeon_WPF.ViewModels
         public ChoiceViewModel(Window _view, string question, string trueAnswer, string falseAnswer)
         {
             view = _view;
-            Yes = trueAnswer;
-            No = falseAnswer;
+            Yes = trueAnswer + " [x]";
+            No = falseAnswer + " [w]";
             Question = question;
         }
     }

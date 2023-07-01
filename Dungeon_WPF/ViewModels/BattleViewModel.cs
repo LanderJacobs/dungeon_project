@@ -157,35 +157,51 @@ namespace Dungeon_WPF.ViewModels
             switch (parameter.ToString())
             {
                 case "Fight":
-                    AllowButton = false;
 
-                    roundThread = new Thread(new ThreadStart(AttackRound));
-                    roundThread.IsBackground = true;
-                    roundThread.Start();
+                    if (AllowButton)
+                    {
+                        AllowButton = false;
+
+                        roundThread = new Thread(new ThreadStart(AttackRound));
+                        roundThread.IsBackground = true;
+                        roundThread.Start();
+                    }
 
                     break;
                 case "Block":
-                    AllowButton = false;
+                    
+                    if (AllowButton)
+                    {
+                        AllowButton = false;
 
-                    roundThread = new Thread(new ThreadStart(BlockRound));
-                    roundThread.IsBackground = true;
-                    roundThread.Start();
+                        roundThread = new Thread(new ThreadStart(BlockRound));
+                        roundThread.IsBackground = true;
+                        roundThread.Start();
+                    }
 
                     break;
                 case "Heal":
-                    AllowButton = false;
+                    
+                    if (AllowButton)
+                    {
+                        AllowButton = false;
 
-                    roundThread = new Thread(new ThreadStart(HealRound));
-                    roundThread.IsBackground = true;
-                    roundThread.Start();
+                        roundThread = new Thread(new ThreadStart(HealRound));
+                        roundThread.IsBackground = true;
+                        roundThread.Start();
+                    }
 
                     break;
                 case "Run":
-                    AllowButton = false;
 
-                    roundThread = new Thread(new ThreadStart(RunRound));
-                    roundThread.IsBackground = true;
-                    roundThread.Start();
+                    if (AllowButton)
+                    {
+                        AllowButton = false;
+
+                        roundThread = new Thread(new ThreadStart(RunRound));
+                        roundThread.IsBackground = true;
+                        roundThread.Start();
+                    }
 
                     break;
                 default:
@@ -271,7 +287,7 @@ namespace Dungeon_WPF.ViewModels
             {
                 if (enemy.Dazed == true)
                 {
-                    Text2 = "The enemy is dazed right now and cannot attack this turn!";
+                    WriteEnemyMessage("The enemy is dazed right now and cannot attack this turn!");
                     enemy.Dazed = false;
                 }
                 else
@@ -286,28 +302,30 @@ namespace Dungeon_WPF.ViewModels
                         if (block == true)
                         {
                             enemy.Dazed = true;
-                            Text2 = $"{EnemyName} was dazed by your block";
+
+                            WriteEnemyMessage($"{EnemyName} was dazed by your block");
                         }
                         else
                         {
                             int damage = enemy.DealDamage(turn);
                             Health -= damage;
-                            Text2 = $"{EnemyName} dealt {damage} damage to you";
+
+                            WriteEnemyMessage($"{EnemyName} dealt {damage} damage to you");
                         }
                     }
                     else
                     {
                         if (enemy.Kind == "Small")
                         {
-                            Text2 = $"{EnemyName} is unsure of what to do";
+                            WriteEnemyMessage($"{EnemyName} is unsure of what to do");
                         }
                         else if (enemy.Kind == "Medium")
                         {
-                            Text2 = $"{EnemyName} is watching you carefully";
+                            WriteEnemyMessage($"{EnemyName} is watching you carefully");
                         }
                         else
                         {
-                            Text2 = $"{EnemyName} has an idea of how it is gonna take you down";
+                            WriteEnemyMessage($"{EnemyName} has an idea of how it is going to take you down");
                         }
                     }
                 }
@@ -336,7 +354,8 @@ namespace Dungeon_WPF.ViewModels
 
                 int damage = character.DamageCalculated();
                 EnemyHealth -= damage;
-                Text = $"You dealt {damage} damage to {EnemyName}";
+
+                WriteCharMessage($"You dealt {damage} damage to {EnemyName}");
 
                 charMoveThread = new Thread(new ThreadStart(CharMove));
                 charMoveThread.IsBackground = true;
@@ -356,7 +375,7 @@ namespace Dungeon_WPF.ViewModels
             {
                 if (character.Speed <= enemy.Speed)
                 {
-                    Text = "You tried to block the attack, but you were to slow!";
+                    WriteCharMessage("You tried to block the attack, but you were to slow!");
                 }
                 else
                 {
@@ -364,11 +383,11 @@ namespace Dungeon_WPF.ViewModels
                     {
                         block = true;
 
-                        Text = "You prepare to block the incoming attack";
+                        WriteCharMessage("You prepare to block the incoming attack");
                     }
                     else
                     {
-                        Text = "You failed to block the next attack";
+                        WriteCharMessage("You failed to block the next attack");
                     }
                 }
 
@@ -387,7 +406,8 @@ namespace Dungeon_WPF.ViewModels
                 Random r = new Random();
                 int heal = r.Next(5, 10);
                 Health += heal;
-                Text = $"You just Healed {heal} health back!";
+
+                WriteCharMessage($"You just Healed {heal} health back!");
 
                 CheckHealth();
             }
@@ -412,7 +432,7 @@ namespace Dungeon_WPF.ViewModels
                     }
                     else
                     {
-                        Text = $"You couldn't run away this time, {EnemyName} is faster than you";
+                        WriteCharMessage($"You couldn't run away this time, {EnemyName} is faster than you");
                     }
                 }
                 if (character.Speed == enemy.Speed)
@@ -423,7 +443,7 @@ namespace Dungeon_WPF.ViewModels
                     }
                     else
                     {
-                        Text = "You were not able to run away, but you have a good chance of escaping";
+                        WriteCharMessage("You were not able to run away, but you have a good chance of escaping");
                     }
                 }
                 if (character.Speed > enemy.Speed)
@@ -434,7 +454,7 @@ namespace Dungeon_WPF.ViewModels
                     }
                     else
                     {
-                        Text = $"You weren't able to run away, {EnemyName} did have a hard time catching up to you";
+                        WriteCharMessage($"You weren't able to run away, {EnemyName} did have a hard time catching up to you");
                     }
                 }
 
@@ -554,6 +574,26 @@ namespace Dungeon_WPF.ViewModels
             catch (Exception)
             {
 
+            }
+        }
+
+        public void WriteCharMessage(string text)
+        {
+            Text = "";
+            for (int i = 0; i < text.Length; i++)
+            {
+                Text += text[i];
+                Thread.Sleep(20);
+            }
+        }
+
+        public void WriteEnemyMessage(string text)
+        {
+            Text2 = "";
+            for (int i = 0; i < text.Length; i++)
+            {
+                Text2 += text[i];
+                Thread.Sleep(20);
             }
         }
     }

@@ -6,6 +6,10 @@
         xmlns:local="clr-namespace:Dungeon_WPF.Views"
         mc:Ignorable="d"
         Title="Are You Sure?" Height="300" Width="500">
+    <Window.InputBindings>
+        <KeyBinding Key="W" Command="{Binding}" CommandParameter="Deny"/>
+        <KeyBinding Key="X" Command="{Binding}" CommandParameter="Admit"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

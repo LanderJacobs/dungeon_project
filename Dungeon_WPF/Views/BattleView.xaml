@@ -6,6 +6,12 @@
         xmlns:local="clr-namespace:Dungeon_WPF.Views"
         mc:Ignorable="d"
         Title="Battle" Height="450" Width="800">
+    <Window.InputBindings>
+        <KeyBinding Key="V" Command="{Binding}" CommandParameter="Run"/>
+        <KeyBinding Key="X" Command="{Binding}" CommandParameter="Block"/>
+        <KeyBinding Key="W" Command="{Binding}" CommandParameter="Fight"/>
+        <KeyBinding Key="C" Command="{Binding}" CommandParameter="Heal"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -58,10 +64,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Fight" Margin="20" Command="{Binding}" CommandParameter="Fight" IsEnabled="{Binding AllowButton}"/>
-            <Button Grid.Column="1" Content="Block" Margin="20" Command="{Binding}" CommandParameter="Block" IsEnabled="{Binding AllowButton}"/>
-            <Button Grid.Column="2" Content="Heal" Margin="20" Command="{Binding}" CommandParameter="Heal" IsEnabled="{Binding AllowButton}"/>
-            <Button Grid.Column="3" Content="Run" Margin="20" Command="{Binding}" CommandParameter="Run" IsEnabled="{Binding AllowButton}"/>
+            <Button Grid.Column="0" Content="Fight [w]" Margin="20" Command="{Binding}" CommandParameter="Fight" IsEnabled="{Binding AllowButton}"/>
+            <Button Grid.Column="1" Content="Block [x]" Margin="20" Command="{Binding}" CommandParameter="Block" IsEnabled="{Binding AllowButton}"/>
+            <Button Grid.Column="2" Content="Heal [c]" Margin="20" Command="{Binding}" CommandParameter="Heal" IsEnabled="{Binding AllowButton}"/>
+            <Button Grid.Column="3" Content="Run [v]" Margin="20" Command="{Binding}" CommandParameter="Run" IsEnabled="{Binding AllowButton}"/>
         </Grid>
         
     </Grid>

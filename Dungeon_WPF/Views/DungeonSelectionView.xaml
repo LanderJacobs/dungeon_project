@@ -6,6 +6,12 @@
         xmlns:local="clr-namespace:Dungeon_WPF.Views"
         mc:Ignorable="d"
         Title="Select a dungeon" Height="450" Width="800">
+    <Window.InputBindings>
+        <KeyBinding Key="W" Command="{Binding}" CommandParameter="Choose"/>
+        <KeyBinding Key="X" Command="{Binding}" CommandParameter="Cancel"/>
+        <KeyBinding Key="Up" Command="{Binding}" CommandParameter="Up"/>
+        <KeyBinding Key="Down" Command="{Binding}" CommandParameter="Down"/>
+    </Window.InputBindings>
     <Window.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="DungeonExample">
@@ -95,7 +101,7 @@
                  ItemsSource="{Binding DungeonList}" SelectedItem="{Binding SelectedDungeon}"
                  BorderBrush="Transparent" Background="Transparent" HorizontalContentAlignment="Stretch"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        <Button Grid.Row="3" Grid.Column="0" Margin="10" Content="Choose Dungeon" Command="{Binding}" CommandParameter="Choose"/>
-        <Button Grid.Row="4" Grid.Column="0" Margin="10" Content="Go Back" Command="{Binding}" CommandParameter="Cancel"/>
+        <Button Grid.Row="3" Grid.Column="0" Margin="10" Content="Choose Dungeon [w]" Command="{Binding}" CommandParameter="Choose"/>
+        <Button Grid.Row="4" Grid.Column="0" Margin="10" Content="Go Back [x]" Command="{Binding}" CommandParameter="Cancel"/>
     </Grid>
 </Window>

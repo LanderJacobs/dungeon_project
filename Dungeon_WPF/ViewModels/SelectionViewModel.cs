@@ -72,6 +72,26 @@ namespace Dungeon_WPF.ViewModels
                 case "Delete":
                     DeleteCharacter();
                     break;
+                case "GoUp":
+                    try
+                    {
+                        GoUp();
+                    }
+                    catch (Exception)
+                    {
+                        help.Message("There is a problem with navigating the dungeons");
+                    }
+                    break;
+                case "GoDown":
+                    try
+                    {
+                        GoDown();
+                    }
+                    catch (Exception)
+                    {
+                        help.Message("There is a problem with navigating the dungeons");
+                    }
+                    break;
                 default:
                     break;
             }
@@ -83,6 +103,7 @@ namespace Dungeon_WPF.ViewModels
         {
             view = _view;
             CharacterList = unitofwork.CharacterRepo.GetAll().ToList();
+            SelectedCharacter = CharacterList[0];
         }
 
         public void OpenDungeons()
@@ -126,6 +147,44 @@ namespace Dungeon_WPF.ViewModels
             else
             {
                 help.Message("First select a character before deleting it");
+            }
+        }
+
+        public void GoUp()
+        {
+            for (int i = 0; i < CharacterList.Count; i++)
+            {
+                if (SelectedCharacter.Equals(CharacterList[i]))
+                {
+                    if (i == 0)
+                    {
+                        SelectedCharacter = CharacterList[CharacterList.Count - 1];
+                    }
+                    else
+                    {
+                        SelectedCharacter = CharacterList[i-1];
+                    }
+                    break;
+                }
+            }
+        }
+
+        public void GoDown()
+        {
+            for (int i = 0; i < CharacterList.Count; i++)
+            {
+                if (SelectedCharacter == CharacterList[i])
+                {
+                    if (i == CharacterList.Count - 1)
+                    {
+                        SelectedCharacter = CharacterList[0];
+                    }
+                    else
+                    {
+                        SelectedCharacter = CharacterList[i+ 1];
+                    }
+                    break;
+                }
             }
         }
     }
