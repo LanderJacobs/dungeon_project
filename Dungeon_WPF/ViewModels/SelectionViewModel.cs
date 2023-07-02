@@ -59,12 +59,7 @@ namespace Dungeon_WPF.ViewModels
             switch (parameter.ToString())
             {
                 case "Add":
-                    AddCharacterView _view = new AddCharacterView();
-                    AddCharacterViewModel vm = new AddCharacterViewModel(_view);
-                    _view.DataContext = vm;
-                    _view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                    _view.Show();
-                    view.Close();
+                    CreateCharacter();
                     break;
                 case "Choose":
                     OpenDungeons();
@@ -79,7 +74,7 @@ namespace Dungeon_WPF.ViewModels
                     }
                     catch (Exception)
                     {
-                        help.Message("There is a problem with navigating the dungeons");
+                        help.Message("There is a problem with navigating the characters");
                     }
                     break;
                 case "GoDown":
@@ -89,8 +84,11 @@ namespace Dungeon_WPF.ViewModels
                     }
                     catch (Exception)
                     {
-                        help.Message("There is a problem with navigating the dungeons");
+                        help.Message("There is a problem with navigating the characters");
                     }
+                    break;
+                case "Close":
+                    view.Close();
                     break;
                 default:
                     break;
@@ -143,11 +141,32 @@ namespace Dungeon_WPF.ViewModels
                         help.Message($"Oops, we couldn't delete {SelectedCharacter.Name} right now");
                     }
                 }
+
+                try
+                {
+                    SelectedCharacter = CharacterList[0];
+                }
+                catch (Exception)
+                {
+                    help.Message("You need to first make a character to play");
+                    CreateCharacter();
+                }
+
             }
             else
             {
                 help.Message("First select a character before deleting it");
             }
+        }
+
+        public void CreateCharacter()
+        {
+            AddCharacterView _view = new AddCharacterView();
+            AddCharacterViewModel vm = new AddCharacterViewModel(_view);
+            _view.DataContext = vm;
+            _view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            _view.Show();
+            view.Close();
         }
 
         public void GoUp()

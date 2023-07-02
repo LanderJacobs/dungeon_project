@@ -94,11 +94,9 @@ namespace Dungeon_WPF.DomainModels
             return true;
         }
 
-        public String LinkImage(bool rest, int stage)
+        public String LinkImage(string status, int stage)
         {
-            String form = rest ? "rest_" : "attack_";
-            form += stage.ToString() + ".png";
-            return @"..\HelperFiles\images\character\" + this.ClassName.ToLower() + @"\" + form;
+            return @"..\HelperFiles\images\character\" + this.ClassName.ToLower() + @"\" + status + "_" + stage.ToString() + ".png";
         }
     }
 }

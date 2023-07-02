@@ -46,6 +46,9 @@ namespace Dungeon_WPF.ViewModels
                     _view.Show();
                     view.Close();
                     break;
+                case "Close":
+                    view.Close();
+                    break;
                 default:
                     break;
             }

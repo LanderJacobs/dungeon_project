@@ -11,6 +11,7 @@
         <KeyBinding Key="X" Command="{Binding}" CommandParameter="Cancel"/>
         <KeyBinding Key="Up" Command="{Binding}" CommandParameter="Up"/>
         <KeyBinding Key="Down" Command="{Binding}" CommandParameter="Down"/>
+        <KeyBinding Key="Esc" Command="{Binding}" CommandParameter="Close"/>
     </Window.InputBindings>
     <Window.Resources>
         <ResourceDictionary>

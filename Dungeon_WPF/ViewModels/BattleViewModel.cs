@@ -231,16 +231,14 @@ namespace Dungeon_WPF.ViewModels
             Text2 = $"{enemy.Name} noticed you!";
 
             //start threads
-            charMoveThread = new Thread(new ThreadStart(CharMove));
-            charMoveThread.IsBackground = true;
-            charMoveThread.Start();
+            StartMoveThread();
         }
 
         //methods
 
         public void EndBattle(bool _won, string message)
         {
-            charMoveThread.Interrupt();
+            KillMoveThread();
 
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -307,10 +305,20 @@ namespace Dungeon_WPF.ViewModels
                         }
                         else
                         {
+
                             int damage = enemy.DealDamage(turn);
                             Health -= damage;
 
+
+                            KillMoveThread();
+                            //animation character damage
+                            CharImage = character.LinkImage("damage", 1);
+
                             WriteEnemyMessage($"{EnemyName} dealt {damage} damage to you");
+
+                            Thread.Sleep(200);
+
+                            StartMoveThread();
                         }
                     }
                     else
@@ -342,24 +350,22 @@ namespace Dungeon_WPF.ViewModels
         {
             try
             {
-                charMoveThread.Interrupt();
+                KillMoveThread();
 
                 //animation attack move
                 for (int i = 1; i <= 3; i++)
                 {
-                    Thread.Sleep(500);
-                    CharImage = character.LinkImage(false, i);
+                    Thread.Sleep(300);
+                    CharImage = character.LinkImage("attack", i);
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(300);
 
                 int damage = character.DamageCalculated();
                 EnemyHealth -= damage;
 
                 WriteCharMessage($"You dealt {damage} damage to {EnemyName}");
 
-                charMoveThread = new Thread(new ThreadStart(CharMove));
-                charMoveThread.IsBackground = true;
-                charMoveThread.Start();
+                StartMoveThread();
 
                 CheckHealth();
             }
@@ -393,7 +399,7 @@ namespace Dungeon_WPF.ViewModels
 
                 CheckHealth();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 CheckHealth();
             }
@@ -411,7 +417,7 @@ namespace Dungeon_WPF.ViewModels
 
                 CheckHealth();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 CheckHealth();
             }
@@ -460,7 +466,7 @@ namespace Dungeon_WPF.ViewModels
 
                 CheckHealth();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 CheckHealth();
             }
@@ -476,16 +482,16 @@ namespace Dungeon_WPF.ViewModels
                 {
                     for (int i = 1; i <= 3; i++)
                     {
-                        CharImage = character.LinkImage(true, i);
+                        CharImage = character.LinkImage("rest", i);
                         Thread.Sleep(100);
                     }
-                    CharImage = character.LinkImage(true, 2);
+                    CharImage = character.LinkImage("rest", 2);
                     Thread.Sleep(100);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Character attacked/stopped moving");
+                
             }
         }
 
@@ -595,6 +601,18 @@ namespace Dungeon_WPF.ViewModels
                 Text2 += text[i];
                 Thread.Sleep(20);
             }
+        }
+
+        public void KillMoveThread()
+        {
+            charMoveThread.Interrupt();
+        }
+
+        public void StartMoveThread()
+        {
+            charMoveThread = new Thread(new ThreadStart(CharMove));
+            charMoveThread.IsBackground = true;
+            charMoveThread.Start();
         }
     }
 }
