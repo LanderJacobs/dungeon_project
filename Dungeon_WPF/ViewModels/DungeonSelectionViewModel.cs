@@ -176,6 +176,9 @@ namespace Dungeon_WPF.ViewModels
                         help.Message("You were not able to select a dungeon");
                     }
                     break;
+                case "Close":
+                    view.Close();
+                    break;
                 default:
                     moveThread.Interrupt();
                     break;
@@ -355,16 +358,16 @@ namespace Dungeon_WPF.ViewModels
                 {
                     for (int i = 1; i <= 3; i++)
                     {
-                        ImageLink = character.LinkImage(true, i);
+                        ImageLink = character.LinkImage("rest", i);
                         Thread.Sleep(100);
                     }
-                    ImageLink = character.LinkImage(true, 2);
+                    ImageLink = character.LinkImage("rest", 2);
                     Thread.Sleep(100);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Stopped moving");
+                
             }
         }
     }

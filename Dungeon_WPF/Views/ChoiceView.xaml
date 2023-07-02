@@ -25,7 +25,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" Text="{Binding Question}" TextWrapping="Wrap"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" VerticalAlignment="Center" HorizontalAlignment="Center"
+                   FontSize="25" Text="{Binding Question}" TextWrapping="Wrap" TextAlignment="Center"/>
         <Button Grid.Row="3" Grid.Column="1" Command="{Binding}" CommandParameter="Deny" Content="{Binding No}"/>
         <Button Grid.Row="3" Grid.Column="3" Command="{Binding}" CommandParameter="Admit" Content="{Binding Yes}"/>
     </Grid>

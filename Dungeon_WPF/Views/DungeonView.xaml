@@ -39,7 +39,7 @@
         <Image Grid.Column="0" Grid.Row="1" Source="{Binding CharImage}"/>
 
         <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center"
-                   Text="{Binding Text}" TextWrapping="Wrap" FontSize="20"/>
+                   Text="{Binding Text}" TextWrapping="Wrap" FontSize="25" TextAlignment="Center"/>
         <Button Grid.Column="3" Grid.Row="3" Margin="10" Command="{Binding}" CommandParameter="Step"
                 IsEnabled="{Binding ButtonAllowed}">Step [Space]</Button>
         <Button Grid.Column="1" Grid.Row="3" Margin="10" Command="{Binding}" CommandParameter="Run"

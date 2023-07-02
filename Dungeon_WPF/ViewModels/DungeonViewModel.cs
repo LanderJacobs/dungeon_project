@@ -185,9 +185,9 @@ namespace Dungeon_WPF.ViewModels
 
                 //little animation
                 Thread.Sleep(200);
-                CharImage = character.LinkImage(true, 2);
+                CharImage = character.LinkImage("rest", 2);
                 Thread.Sleep(200);
-                CharImage = character.LinkImage(true, 1);
+                CharImage = character.LinkImage("rest", 1);
                 Thread.Sleep(200);
 
                 if (Chance <= dungeon.EnemyChance)
@@ -290,7 +290,6 @@ namespace Dungeon_WPF.ViewModels
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Something went wrong while taking a step: {ex.Message}");
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {

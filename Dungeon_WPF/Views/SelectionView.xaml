@@ -12,6 +12,7 @@
         <KeyBinding Key="W" Command="{Binding}" CommandParameter="Choose"/>
         <KeyBinding Key="X" Command="{Binding}" CommandParameter="Delete"/>
         <KeyBinding Key="C" Command="{Binding}" CommandParameter="Add"/>
+        <KeyBinding Key="Esc" Command="{Binding}" CommandParameter="Close"/>
     </Window.InputBindings>
     <Window.Resources>
         <ResourceDictionary>
@@ -99,7 +100,8 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Content="Use up/down-arrows to navigate characters" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="Use up/down-arrows to navigate characters. Esc to close game." VerticalAlignment="Center"
+                       HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
             <Button Grid.Row="1" Margin="30" Command="{Binding}" CommandParameter="Choose">Choose Character [w]</Button>
             <Button Grid.Row="2" Margin="30" Command="{Binding}" CommandParameter="Delete">Delete Character [x]</Button>
             <Button Grid.Row="3" Margin="30" Command="{Binding}" CommandParameter="Add">Add Character [c]</Button>
