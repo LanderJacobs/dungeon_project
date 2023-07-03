@@ -10,7 +10,7 @@
         <KeyBinding Key="Space" Command="{Binding}" CommandParameter="Step"/>
         <KeyBinding Key="X" Command="{Binding}" CommandParameter="Run"/>
     </Window.InputBindings>
-    <Grid>
+    <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>

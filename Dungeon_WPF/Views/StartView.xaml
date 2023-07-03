@@ -10,7 +10,7 @@
         <KeyBinding Key="Space" Command="{Binding}" CommandParameter="Start"/>
         <KeyBinding Key="Esc" Command="{Binding}" CommandParameter="Close"/>
     </Window.InputBindings>
-    <Grid>
+    <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -23,6 +23,8 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Image Source="..\HelperFiles\images\background\start.jpg" Grid.Row="0" Grid.Column="0" Stretch="Fill" Grid.ColumnSpan="3" Grid.RowSpan="5"
+               VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50">Welcome</TextBlock>
         <Button Grid.Row="3" Grid.Column="1" Command="{Binding}" CommandParameter="Start">Start [Space]</Button>
     </Grid>

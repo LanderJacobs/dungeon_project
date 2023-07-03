@@ -9,7 +9,7 @@
     <Window.InputBindings>
         <KeyBinding Key="Space" Command="{Binding}" CommandParameter="Close"/>
     </Window.InputBindings>
-    <Grid>
+    <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>

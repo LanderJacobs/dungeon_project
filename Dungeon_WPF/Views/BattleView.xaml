@@ -12,7 +12,7 @@
         <KeyBinding Key="W" Command="{Binding}" CommandParameter="Fight"/>
         <KeyBinding Key="C" Command="{Binding}" CommandParameter="Heal"/>
     </Window.InputBindings>
-    <Grid>
+    <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
