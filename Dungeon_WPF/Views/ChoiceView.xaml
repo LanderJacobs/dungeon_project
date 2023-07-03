@@ -10,7 +10,7 @@
         <KeyBinding Key="W" Command="{Binding}" CommandParameter="Deny"/>
         <KeyBinding Key="X" Command="{Binding}" CommandParameter="Admit"/>
     </Window.InputBindings>
-    <Grid>
+    <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>

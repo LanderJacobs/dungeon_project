@@ -59,7 +59,7 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
@@ -72,36 +72,42 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Name}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" TextWrapping="WrapWithOverflow" Background="Transparent"/>
+        <Image Source="..\HelperFiles\images\background\dungeon.png" Grid.Row="0" Grid.Column="0" Stretch="Fill" Grid.ColumnSpan="2" Grid.RowSpan="5"
+               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Name}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top"
+                   TextWrapping="WrapWithOverflow" Background="Transparent" Foreground="White"/>
         <Image Grid.Row="0" Grid.Column="0" Source="{Binding ImageLink}" MinHeight="95"/>
 
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <Label Content="Money:"/>
-                <Label Content="{Binding Money}"/>
+                <Label Content="Money:" Foreground="White"/>
+                <Label Content="{Binding Money}" Foreground="White"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Attack:"/>
-                <Label Content="{Binding Attack}"/>
+                <Label Content="Attack:" Foreground="White"/>
+                <Label Content="{Binding Attack}" Foreground="White"/>
                 <Button Content="Add 1 Attack" Command="{Binding}" CommandParameter="AddAttack" Margin="10 0" Visibility="{Binding ShowButtons}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Health:"/>
-                <Label Content="{Binding Health}"/>
+                <Label Content="Health:" Foreground="White"/>
+                <Label Content="{Binding Health}" Foreground="White"/>
                 <Button Content="Add 1 Health" Command="{Binding}" CommandParameter="AddHealth" Margin="10 0" Visibility="{Binding ShowButtons}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Speed:"/>
-                <Label Content="{Binding Speed}"/>
+                <Label Content="Speed:" Foreground="White"/>
+                <Label Content="{Binding Speed}" Foreground="White"/>
                 <Button Content="Add 1 Speed" Command="{Binding}" CommandParameter="AddSpeed" Margin="10 0" Visibility="{Binding ShowButtons}"/>
             </StackPanel>
         </StackPanel>
         
-        <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Content="Choose a dungeon" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40"/>
+        <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Content="Choose a dungeon" VerticalAlignment="Center" HorizontalAlignment="Center"
+               FontSize="40" Foreground="White"/>
         <ListBox Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" ItemContainerStyle="{StaticResource ContainerStyle}"
                  ItemsSource="{Binding DungeonList}" SelectedItem="{Binding SelectedDungeon}"
                  BorderBrush="Transparent" Background="Transparent" HorizontalContentAlignment="Stretch"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        
         <Button Grid.Row="3" Grid.Column="0" Margin="10" Content="Choose Dungeon [w]" Command="{Binding}" CommandParameter="Choose"/>
         <Button Grid.Row="4" Grid.Column="0" Margin="10" Content="Go Back [x]" Command="{Binding}" CommandParameter="Cancel"/>
     </Grid>

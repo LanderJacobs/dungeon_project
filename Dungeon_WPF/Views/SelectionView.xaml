@@ -84,16 +84,18 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <Image Source="..\HelperFiles\images\background\selection.jpg" Grid.Row="0" Grid.Column="0" Stretch="Fill" Grid.ColumnSpan="2"
+               VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <ListBox Grid.Column="0" ItemsSource="{Binding CharacterList}"
                  SelectedItem="{Binding SelectedCharacter}" ItemContainerStyle="{StaticResource ContainerStyle}"
                  BorderBrush="Transparent" Background="Transparent" HorizontalContentAlignment="Stretch"
-                 ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
-        <Grid Grid.Column="1">
+                 ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="80 40 20 40"/>
+        <Grid Grid.Column="1" Margin="10 30 100 25">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
@@ -102,9 +104,9 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Use up/down-arrows to navigate characters. Esc to close game." VerticalAlignment="Center"
                        HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
-            <Button Grid.Row="1" Margin="30" Command="{Binding}" CommandParameter="Choose">Choose Character [w]</Button>
-            <Button Grid.Row="2" Margin="30" Command="{Binding}" CommandParameter="Delete">Delete Character [x]</Button>
-            <Button Grid.Row="3" Margin="30" Command="{Binding}" CommandParameter="Add">Add Character [c]</Button>
+            <Button Grid.Row="1" Margin="20" Command="{Binding}" CommandParameter="Choose">Choose Character [w]</Button>
+            <Button Grid.Row="2" Margin="20" Command="{Binding}" CommandParameter="Delete">Delete Character [x]</Button>
+            <Button Grid.Row="3" Margin="20" Command="{Binding}" CommandParameter="Add">Add Character [c]</Button>
         </Grid>
     </Grid>
 </Window>

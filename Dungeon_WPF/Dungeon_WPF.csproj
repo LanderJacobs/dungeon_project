@@ -9,6 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="HelperFiles\images\background\dungeon.png" />
+    <None Remove="HelperFiles\images\background\selection.jpg" />
+    <None Remove="HelperFiles\images\background\start.jpg" />
     <None Remove="HelperFiles\images\character\fighter\attack_1.png" />
     <None Remove="HelperFiles\images\character\fighter\attack_2.png" />
     <None Remove="HelperFiles\images\character\fighter\attack_3.png" />
@@ -42,6 +45,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="HelperFiles\images\background\dungeon.png" />
+    <Resource Include="HelperFiles\images\background\selection.jpg" />
+    <Resource Include="HelperFiles\images\background\start.jpg" />
     <Resource Include="HelperFiles\images\character\fighter\attack_1.png" />
     <Resource Include="HelperFiles\images\character\fighter\attack_2.png" />
     <Resource Include="HelperFiles\images\character\fighter\attack_3.png" />
